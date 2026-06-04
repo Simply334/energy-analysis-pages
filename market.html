@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>中国智慧能源与能碳数据产品市场分析网页</title>
+<style>
+:root {
+  --bg:#09111e; --panel:#0e1624; --panel2:#101c2f; --card:#111d31; --text:#e7eefc; --muted:#8ea3bf;
+  --brand:#25d0a6; --blue:#4ea5ff; --yellow:#f5c451; --red:#ff7d7d; --purple:#a78bfa;
+  --line:#24324a; --good:#22c55e; --warn:#f59e0b; --bad:#ef4444;
+}
+* {box-sizing:border-box}
+body {
+  margin:0; background:linear-gradient(180deg,#06101e 0%,#0a1220 38%,#0c111b 100%); color:var(--text);
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;
+  line-height:1.65;
+}
+a {color:#70c7ff;text-decoration:none}
+a:hover {text-decoration:underline}
+.layout {display:grid; grid-template-columns: 280px minmax(0,1fr); min-height:100vh}
+.sidebar {
+  position:sticky; top:0; height:100vh; overflow:auto; padding:26px 18px; background:rgba(6,12,22,.94); border-right:1px solid var(--line);
+}
+.sidebar h2 {font-size:18px; margin:0 0 16px; color:#fff}
+.sidebar a {display:block; padding:8px 10px; margin:4px 0; border-radius:10px; color:#b8c7dc; font-size:14px}
+.sidebar a:hover {background:#12223a; color:#fff; text-decoration:none}
+.main {padding:0 34px 60px; max-width:1500px}
+.hero {
+  padding:54px 0 30px; border-bottom:1px solid var(--line); position:relative; overflow:hidden
+}
+.hero:after {
+  content:""; position:absolute; right:-180px; top:-220px; width:560px; height:560px; border-radius:50%;
+  background:radial-gradient(circle,rgba(37,208,166,.24),rgba(78,165,255,.08),transparent 70%);
+  z-index:-1
+}
+h1 {font-size:42px; line-height:1.18; margin:0 0 16px; letter-spacing:-.5px}
+.subtitle {font-size:18px; color:#b8c7dc; max-width:1050px}
+.badges {display:flex; flex-wrap:wrap; gap:8px; margin-top:22px}
+.badge,.pill {
+  display:inline-flex; align-items:center; padding:5px 10px; border-radius:999px; background:rgba(37,208,166,.12);
+  border:1px solid rgba(37,208,166,.28); color:#baf8e9; font-size:12px; white-space:nowrap
+}
+.pill {padding:3px 8px; font-size:12px}
+.section {padding:36px 0; border-bottom:1px solid rgba(36,50,74,.7)}
+h2 {font-size:28px; margin:0 0 12px}
+h3 {font-size:21px; margin:28px 0 10px}
+h4 {font-size:16px; margin:22px 0 8px; color:#d8e7ff}
+.lead {color:#c7d5e8; font-size:16px; max-width:1100px}
+.grid {display:grid; gap:16px}
+.grid-2 {grid-template-columns:repeat(2,minmax(0,1fr))}
+.grid-3 {grid-template-columns:repeat(3,minmax(0,1fr))}
+.grid-4 {grid-template-columns:repeat(4,minmax(0,1fr))}
+.card {
+  background:linear-gradient(180deg,rgba(17,29,49,.96),rgba(13,22,37,.98)); border:1px solid var(--line); border-radius:18px; padding:18px;
+  box-shadow:0 10px 30px rgba(0,0,0,.18)
+}
+.card h3,.card h4 {margin-top:0}
+.metric {font-size:32px; font-weight:780; letter-spacing:-.5px}
+.metric small {font-size:14px; color:var(--muted); font-weight:500}
+.note {color:#a8b7ca; font-size:13px}
+blockquote {
+  margin:18px 0; padding:16px 18px; background:rgba(37,208,166,.08); border-left:4px solid var(--brand); border-radius:12px; color:#dffcf3
+}
+table {width:100%; border-collapse:collapse; margin:12px 0; font-size:14px; overflow:hidden; border-radius:14px}
+th,td {padding:10px 12px; border-bottom:1px solid rgba(36,50,74,.85); vertical-align:top}
+th {text-align:left; color:#dce8fb; background:#14233a; position:sticky; top:0}
+td {color:#cdd9ea}
+tr:hover td {background:rgba(78,165,255,.06)}
+.num {text-align:right; font-variant-numeric:tabular-nums}
+.chartbox {background:#0c1524; border:1px solid var(--line); border-radius:18px; padding:16px; margin:14px 0}
+.chartbox h4 {margin:0 0 4px}
+.chart {width:100%; height:auto; display:block}
+.legend {display:flex; gap:12px; flex-wrap:wrap; color:#b6c5da; font-size:13px}
+.dot {display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:6px}
+.kpi-grid {display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px; margin-top:22px}
+.kpi {padding:16px; border-radius:18px; background:linear-gradient(180deg,#101e33,#0c1728); border:1px solid var(--line)}
+.kpi .label {font-size:13px; color:var(--muted)}
+.kpi .value {font-size:28px; font-weight:800; margin-top:6px}
+.kpi .sub {font-size:12px; color:#9fb2cc}
+.formula {
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; background:#07101d; border:1px solid var(--line);
+  padding:12px 14px; border-radius:12px; color:#dbeafe; overflow:auto; white-space:pre-wrap
+}
+.warn {border-left:4px solid var(--yellow); background:rgba(245,196,81,.08); padding:12px 14px; border-radius:12px; color:#ffecc0}
+.good {border-left:4px solid var(--brand); background:rgba(37,208,166,.08); padding:12px 14px; border-radius:12px}
+.filterbar {display:flex; gap:10px; flex-wrap:wrap; margin:16px 0}
+input,select {background:#0c1628; color:#e7eefc; border:1px solid #2a3a56; border-radius:10px; padding:10px 12px}
+.progress {height:10px; background:#0a1322; border-radius:99px; overflow:hidden; border:1px solid var(--line)}
+.progress span {display:block; height:100%; background:linear-gradient(90deg,var(--brand),var(--blue))}
+.taglist {display:flex; gap:8px; flex-wrap:wrap}
+.tag {font-size:12px; color:#cfe0f7; background:#13233a; padding:4px 8px; border-radius:8px}
+.tocnote {font-size:12px;color:#7f91ab;margin-top:14px}
+.references li {margin-bottom:10px; color:#cdd9ea}
+@media (max-width: 1080px) {
+  .layout {display:block}
+  .sidebar {position:relative; height:auto; border-right:0; border-bottom:1px solid var(--line)}
+  .main {padding:0 18px 50px}
+  .grid-2,.grid-3,.grid-4,.kpi-grid {grid-template-columns:1fr}
+  h1 {font-size:32px}
+}
+</style>
+<script>
+function filterProvince() {
+  const q = document.getElementById('provinceSearch').value.toLowerCase();
+  const region = document.getElementById('regionFilter').value;
+  const pri = document.getElementById('priorityFilter').value;
+  document.querySelectorAll('#provinceTable tbody tr').forEach(tr => {
+    const txt = tr.innerText.toLowerCase();
+    const r = tr.dataset.region;
+    const p = tr.dataset.priority;
+    const show = (!q || txt.includes(q)) && (!region || r.includes(region)) && (!pri || p===pri);
+    tr.style.display = show ? '' : 'none';
+  });
+}
+</script>
+</head>
+<body>
+<div class="layout">
+<aside class="sidebar">
+  <h2>能源数据分析网页</h2>
+  <a href="#summary">0. 总结与结论</a>
+  <a href="#industry">1. 行业总盘数据</a>
+  <a href="#province">2. 省区市机会分析</a>
+  <a href="#competitor">3. 竞争对手与竞争格局</a>
+  <a href="#energy-types">4. 能源类型与场景分析</a>
+  <a href="#models">5. 数据核算与建模逻辑</a>
+  <a href="#projects">6. 项目板块与收益测算</a>
+  <a href="#platform">7. 智慧能源平台数据逻辑</a>
+  <a href="#visual">8. 可视化系统设计</a>
+  <a href="#product">9. 数据产品沉淀</a>
+  <a href="#actions">10. 可落地行动方案</a>
+  <a href="#sources">11. 数据来源</a>
+  <p class="tocnote">说明：网页内“省域机会指数”为基于公开数据与业务逻辑的评分模型，不等同于官方排名。</p>
+</aside>
+
+<main class="main">
+<section class="hero" id="summary">
+  <h1>中国智慧能源、综合能源与能碳数据产品市场分析</h1>
+  <p class="subtitle">
+    本网页围绕你前面提出的所有板块，重新从“数据分析”角度展开：覆盖能耗核算、能效分析、峰谷电价、新能源发电测算、储能调度、碳排放与碳足迹、智慧能源平台、项目测算、可视化系统、省区市机会评估、竞争对手拆解和可落地建议。
+  </p>
+  <div class="badges">
+    <span class="badge">中国省区市机会评分</span><span class="badge">行业数据图表</span><span class="badge">竞争对手矩阵</span><span class="badge">项目收益测算</span><span class="badge">能碳数据产品沉淀</span>
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi"><div class="label">2025 全社会用电量</div><div class="value">103,682 <small>亿kWh</small></div><div class="sub">同比 +5.0%｜来源 S1</div></div>
+    <div class="kpi"><div class="label">第二产业用电占比</div><div class="value">64.0<small>%</small></div><div class="sub">工业仍是能源数据项目基本盘</div></div>
+    <div class="kpi"><div class="label">2025 可再生能源装机</div><div class="value">23.4 <small>亿kW</small></div><div class="sub">约占全国总装机 60%｜来源 S2</div></div>
+    <div class="kpi"><div class="label">2025 新型储能装机</div><div class="value">1.36 <small>亿kW</small></div><div class="sub">3.51亿kWh｜平均2.58小时｜来源 S5</div></div>
+  </div>
+
+  <blockquote>
+    核心判断：这个行业的机会不在“做一个漂亮大屏”，而在于把能源账单、15分钟负荷、设备运行、光伏发电、储能调度、碳因子、项目收益、报告模板统一成可复用的数据产品。省域上优先从广东、江苏、浙江、山东、安徽、内蒙古、新疆等“用电规模/新能源资源/政策需求/项目密度”较强区域切入。
+  </blockquote>
+</section>
+
+<section class="section">
+  <h2>0.1 本报告的分析口径</h2>
+  <div class="grid grid-3">
+    <div class="card"><h3>不是单纯问答</h3><p>本版按“市场规模 → 省域机会 → 竞争格局 → 项目模型 → 产品路线 → 落地动作”组织，而不是逐条解释概念。</p></div>
+    <div class="card"><h3>省级数据的边界</h3><p>省级机会指数是模型评分：官方公开数据用于校准方向，包括用电总量、用电增速、新能源装机、单位GDP电耗等；未公开或口径不统一的数据用评分表示，不伪装成官方统计。</p></div>
+    <div class="card"><h3>可落地目标</h3><p>最终输出可直接用于：能源项目售前分析、方案设计、商务报价、能耗诊断、看板设计、碳核算、数据产品资产库建设。</p></div>
+  </div>
+</section>
+
+<section class="section" id="industry">
+  <h2>1. 行业总盘数据：需求侧增长、供给侧新能源化、运营侧市场化</h2>
+  <p class="lead">智慧能源数据产品的行业基础来自三个变化：用电规模继续增长，新能源装机和发电占比快速上升，电力市场交易与绿电交易扩大。这决定了客户不只需要“能耗监测”，还需要“电费优化、储能调度、绿电消纳、碳核算和项目收益验证”。</p>
+
+  <div class="grid grid-2">
+    <div class="chartbox">
+      <h4>2025 全社会用电结构</h4>
+      <p class="note">单位：亿千瓦时。第二产业占比约 64.0%，说明工业与园区客户仍是能源数据产品的核心市场。</p>
+      <svg class="chart piechart" viewBox="0 0 620 360" role="img">
+<path d="M 180 180 L 180.0 65.0 A 115 115 0 0 1 190.4 65.5 Z" fill="#25d0a6" opacity="0.92"/>
+<rect x="340" y="60" width="12" height="12" rx="3" fill="#25d0a6"/>
+<text x="360" y="71" fill="#dce8fb" font-size="13">第一产业 1.4%</text>
+<path d="M 180 180 L 190.4 65.5 A 115 115 0 1 1 85.1 244.9 Z" fill="#4ea5ff" opacity="0.92"/>
+<rect x="340" y="90" width="12" height="12" rx="3" fill="#4ea5ff"/>
+<text x="360" y="101" fill="#dce8fb" font-size="13">第二产业 64.0%</text>
+<path d="M 180 180 L 85.1 244.9 A 115 115 0 0 1 85.6 114.3 Z" fill="#f5c451" opacity="0.92"/>
+<rect x="340" y="120" width="12" height="12" rx="3" fill="#f5c451"/>
+<text x="360" y="131" fill="#dce8fb" font-size="13">第三产业 19.2%</text>
+<path d="M 180 180 L 85.6 114.3 A 115 115 0 0 1 180.0 65.0 Z" fill="#ff7d7d" opacity="0.92"/>
+<rect x="340" y="150" width="12" height="12" rx="3" fill="#ff7d7d"/>
+<text x="360" y="161" fill="#dce8fb" font-size="13">城乡居民 15.3%</text>
+<circle cx="180" cy="180" r="62" fill="#0e1624"/>
+<text x="180" y="178" fill="#e8f3ff" font-size="18" text-anchor="middle">103682</text>
+<text x="180" y="200" fill="#8fa3bf" font-size="12" text-anchor="middle">合计</text>
+</svg>
+    </div>
+    <div class="chartbox">
+      <h4>2025 分产业与新兴服务用电增速</h4>
+      <p class="note">充换电服务、信息传输/软件服务用电增速明显，推动光储充、数据中心能效、虚拟电厂等新场景。</p>
+      <svg class="chart" viewBox="0 0 820 360" role="img">
+<line x1="150.0" y1="25" x2="150.0" y2="320" stroke="#24324a" stroke-width="1"/>
+<text x="150.0" y="345" fill="#789" font-size="11" text-anchor="middle">0%</text>
+<line x1="310.0" y1="25" x2="310.0" y2="320" stroke="#24324a" stroke-width="1"/>
+<text x="310.0" y="345" fill="#789" font-size="11" text-anchor="middle">12%</text>
+<line x1="470.0" y1="25" x2="470.0" y2="320" stroke="#24324a" stroke-width="1"/>
+<text x="470.0" y="345" fill="#789" font-size="11" text-anchor="middle">24%</text>
+<line x1="630.0" y1="25" x2="630.0" y2="320" stroke="#24324a" stroke-width="1"/>
+<text x="630.0" y="345" fill="#789" font-size="11" text-anchor="middle">37%</text>
+<line x1="790.0" y1="25" x2="790.0" y2="320" stroke="#24324a" stroke-width="1"/>
+<text x="790.0" y="345" fill="#789" font-size="11" text-anchor="middle">49%</text>
+<text x="140" y="51.5" fill="#c9d4e7" font-size="12" text-anchor="end">第一产业</text>
+<rect x="150" y="35.8" width="129.8" height="27.5" rx="6" fill="#4ea5ff"/>
+<text x="287.8" y="52.5" fill="#e8f3ff" font-size="12">10%</text>
+<text x="140" y="100.7" fill="#c9d4e7" font-size="12" text-anchor="end">第二产业</text>
+<rect x="150" y="85.0" width="48.5" height="27.5" rx="6" fill="#4ea5ff"/>
+<text x="206.5" y="101.7" fill="#e8f3ff" font-size="12">4%</text>
+<text x="140" y="149.9" fill="#c9d4e7" font-size="12" text-anchor="end">第三产业</text>
+<rect x="150" y="134.2" width="107.5" height="27.5" rx="6" fill="#4ea5ff"/>
+<text x="265.5" y="150.9" fill="#e8f3ff" font-size="12">8%</text>
+<text x="140" y="199.0" fill="#c9d4e7" font-size="12" text-anchor="end">城乡居民</text>
+<rect x="150" y="183.3" width="82.6" height="27.5" rx="6" fill="#4ea5ff"/>
+<text x="240.6" y="200.0" fill="#e8f3ff" font-size="12">6%</text>
+<text x="140" y="248.2" fill="#c9d4e7" font-size="12" text-anchor="end">充换电服务</text>
+<rect x="150" y="232.5" width="640.0" height="27.5" rx="6" fill="#4ea5ff"/>
+<text x="798.0" y="249.2" fill="#e8f3ff" font-size="12">49%</text>
+<text x="140" y="297.4" fill="#c9d4e7" font-size="12" text-anchor="end">信息软件服务</text>
+<rect x="150" y="281.6" width="223.0" height="27.5" rx="6" fill="#4ea5ff"/>
+<text x="381.0" y="298.4" fill="#e8f3ff" font-size="12">17%</text>
+</svg>
+    </div>
+  </div>
+
+  <h3>1.1 从行业数据得出的商业含义</h3>
+  <table>
+    <thead><tr><th>数据现象</th><th>业务含义</th><th>可卖的数据产品/服务</th></tr></thead>
+    <tbody>
+      <tr><td>第二产业用电 66,366 亿kWh，占比约 64.0%</td><td>工业客户仍是能效改造、储能削峰、碳治理主战场</td><td>工业用电诊断、空压/冷站专项、峰谷电价优化、碳排监测</td></tr>
+      <tr><td>充换电服务业用电增速 48.8%</td><td>充电站负荷尖峰、配电容量、光储充一体化需求上升</td><td>充电负荷预测、光储充配置、需量控制、变压器容量优化</td></tr>
+      <tr><td>信息软件服务业用电增速 17.0%</td><td>数据中心和算力基础设施能耗、PUE、绿电合规需求上升</td><td>数据中心能效诊断、绿电管理、碳排核算、PUE看板</td></tr>
+      <tr><td>电力市场交易量占全社会用电量 64.0%</td><td>客户侧电力采购、绿电交易、峰谷/现货价格敏感度提高</td><td>电价策略分析、售电报价辅助、绿电成本评估、储能调度收益复盘</td></tr>
+    </tbody>
+  </table>
+
+  <div class="grid grid-2">
+    <div class="chartbox">
+      <h4>可再生能源装机：2024 vs 2025</h4>
+      <p class="note">单位：亿千瓦。2025年光伏装机达12亿千瓦，风电6.4亿千瓦，风光合计接近全国总装机一半。</p>
+      <svg class="chart" viewBox="0 0 820 370" role="img">
+<line x1="65" y1="290.0" x2="795" y2="290.0" stroke="#24324a" stroke-width="1"/>
+<text x="57" y="294.0" fill="#789" font-size="11" text-anchor="end">0.0亿kW</text>
+<line x1="65" y1="223.8" x2="795" y2="223.8" stroke="#24324a" stroke-width="1"/>
+<text x="57" y="227.8" fill="#789" font-size="11" text-anchor="end">3.0亿kW</text>
+<line x1="65" y1="157.5" x2="795" y2="157.5" stroke="#24324a" stroke-width="1"/>
+<text x="57" y="161.5" fill="#789" font-size="11" text-anchor="end">6.0亿kW</text>
+<line x1="65" y1="91.2" x2="795" y2="91.2" stroke="#24324a" stroke-width="1"/>
+<text x="57" y="95.2" fill="#789" font-size="11" text-anchor="end">9.0亿kW</text>
+<line x1="65" y1="25.0" x2="795" y2="25.0" stroke="#24324a" stroke-width="1"/>
+<text x="57" y="29.0" fill="#789" font-size="11" text-anchor="end">12.0亿kW</text>
+<rect x="81.5" y="193.7" width="62.5" height="96.3" rx="6" fill="#25d0a6"/>
+<rect x="148.0" y="190.6" width="62.5" height="99.4" rx="6" fill="#4ea5ff"/>
+<text x="147.2" y="316" fill="#c9d4e7" font-size="11" text-anchor="middle">水电</text>
+<rect x="269.9" y="174.9" width="62.5" height="115.1" rx="6" fill="#25d0a6"/>
+<rect x="336.5" y="148.7" width="62.5" height="141.3" rx="6" fill="#4ea5ff"/>
+<text x="335.8" y="316" fill="#c9d4e7" font-size="11" text-anchor="middle">风电</text>
+<rect x="458.4" y="94.3" width="62.5" height="195.7" rx="6" fill="#25d0a6"/>
+<rect x="525.0" y="25.0" width="62.5" height="265.0" rx="6" fill="#4ea5ff"/>
+<text x="524.2" y="316" fill="#c9d4e7" font-size="11" text-anchor="middle">光伏</text>
+<rect x="647.0" y="279.8" width="62.5" height="10.2" rx="6" fill="#25d0a6"/>
+<rect x="713.5" y="279.6" width="62.5" height="10.4" rx="6" fill="#4ea5ff"/>
+<text x="712.8" y="316" fill="#c9d4e7" font-size="11" text-anchor="middle">生物质</text>
+<rect x="610" y="18" width="12" height="12" fill="#25d0a6"/><text x="628" y="29" fill="#c9d4e7" font-size="12">2024</text>
+<rect x="680" y="18" width="12" height="12" fill="#4ea5ff"/><text x="698" y="29" fill="#c9d4e7" font-size="12">2025</text>
+</svg>
+    </div>
+    <div class="chartbox">
+      <h4>可再生能源发电量：2024 vs 2025</h4>
+      <p class="note">单位：万亿千瓦时。光伏发电量2025年同比约 +40.3%，形成光伏运维、自用率优化、储能配套需求。</p>
+      <svg class="chart" viewBox="0 0 820 370" role="img">
+<line x1="65" y1="290.0" x2="795" y2="290.0" stroke="#24324a" stroke-width="1"/>
+<text x="57" y="294.0" fill="#789" font-size="11" text-anchor="end">0.0万亿kWh</text>
+<line x1="65" y1="223.8" x2="795" y2="223.8" stroke="#24324a" stroke-width="1"/>
+<text x="57" y="227.8" fill="#789" font-size="11" text-anchor="end">0.4万亿kWh</text>
+<line x1="65" y1="157.5" x2="795" y2="157.5" stroke="#24324a" stroke-width="1"/>
+<text x="57" y="161.5" fill="#789" font-size="11" text-anchor="end">0.7万亿kWh</text>
+<line x1="65" y1="91.2" x2="795" y2="91.2" stroke="#24324a" stroke-width="1"/>
+<text x="57" y="95.2" fill="#789" font-size="11" text-anchor="end">1.1万亿kWh</text>
+<line x1="65" y1="25.0" x2="795" y2="25.0" stroke="#24324a" stroke-width="1"/>
+<text x="57" y="29.0" fill="#789" font-size="11" text-anchor="end">1.5万亿kWh</text>
+<rect x="81.5" y="31.6" width="62.5" height="258.4" rx="6" fill="#f5c451"/>
+<rect x="148.0" y="25.0" width="62.5" height="265.0" rx="6" fill="#25d0a6"/>
+<text x="147.2" y="316" fill="#c9d4e7" font-size="11" text-anchor="middle">水电</text>
+<rect x="269.9" y="110.0" width="62.5" height="180.0" rx="6" fill="#f5c451"/>
+<rect x="336.5" y="84.9" width="62.5" height="205.1" rx="6" fill="#25d0a6"/>
+<text x="335.8" y="316" fill="#c9d4e7" font-size="11" text-anchor="middle">风电</text>
+<rect x="458.4" y="138.6" width="62.5" height="151.4" rx="6" fill="#f5c451"/>
+<rect x="525.0" y="77.6" width="62.5" height="212.4" rx="6" fill="#25d0a6"/>
+<text x="524.2" y="316" fill="#c9d4e7" font-size="11" text-anchor="middle">光伏</text>
+<rect x="647.0" y="252.2" width="62.5" height="37.8" rx="6" fill="#f5c451"/>
+<rect x="713.5" y="249.2" width="62.5" height="40.8" rx="6" fill="#25d0a6"/>
+<text x="712.8" y="316" fill="#c9d4e7" font-size="11" text-anchor="middle">生物质</text>
+<rect x="610" y="18" width="12" height="12" fill="#f5c451"/><text x="628" y="29" fill="#c9d4e7" font-size="12">2024</text>
+<rect x="680" y="18" width="12" height="12" fill="#25d0a6"/><text x="698" y="29" fill="#c9d4e7" font-size="12">2025</text>
+</svg>
+    </div>
+  </div>
+
+  <h3>1.2 新能源数据分析的直接结论</h3>
+  <div class="grid grid-3">
+    <div class="card"><h3>光伏项目</h3><p>从“装机容量驱动”转向“消纳收益驱动”。前期必须测算自用率、上网电价、现货价格暴露、屋顶产权和负荷稳定性。</p></div>
+    <div class="card"><h3>储能项目</h3><p>从“配套建设”转向“调度资产”。关键不是装多大，而是能否覆盖尖峰、提高光伏消纳、参与需求响应和市场化收益。</p></div>
+    <div class="card"><h3>微电网/综合能源</h3><p>从“单系统节能”转向“源网荷储碳协同”。可视化平台必须体现能量平衡、碳排结构和调度结果。</p></div>
+  </div>
+
+  <div class="grid grid-2">
+    <div class="chartbox">
+      <h4>新型储能装机增长</h4>
+      <p class="note">单位：GW。2025年底新型储能较2024年底增长约 84.4%。</p>
+      <svg class="chart" viewBox="0 0 820 360" role="img">
+<line x1="60" y1="280.0" x2="795" y2="280.0" stroke="#24324a" stroke-width="1"/>
+<text x="52" y="284.0" fill="#789" font-size="11" text-anchor="end">0.0GW</text>
+<line x1="60" y1="216.2" x2="795" y2="216.2" stroke="#24324a" stroke-width="1"/>
+<text x="52" y="220.2" fill="#789" font-size="11" text-anchor="end">34.0GW</text>
+<line x1="60" y1="152.5" x2="795" y2="152.5" stroke="#24324a" stroke-width="1"/>
+<text x="52" y="156.5" fill="#789" font-size="11" text-anchor="end">68.0GW</text>
+<line x1="60" y1="88.8" x2="795" y2="88.8" stroke="#24324a" stroke-width="1"/>
+<text x="52" y="92.8" fill="#789" font-size="11" text-anchor="end">102.0GW</text>
+<line x1="60" y1="25.0" x2="795" y2="25.0" stroke="#24324a" stroke-width="1"/>
+<text x="52" y="29.0" fill="#789" font-size="11" text-anchor="end">136.0GW</text>
+<rect x="60.0" y="141.7" width="362.5" height="138.3" rx="7" fill="#a78bfa"/>
+<text x="241.2" y="133.7" fill="#e8f3ff" font-size="12" text-anchor="middle">74GW</text>
+<text x="241.2" y="308" fill="#c9d4e7" font-size="11" text-anchor="middle" transform="rotate(30 241.2,308)">2024年底</text>
+<rect x="432.5" y="25.0" width="362.5" height="255.0" rx="7" fill="#a78bfa"/>
+<text x="613.8" y="17.0" fill="#e8f3ff" font-size="12" text-anchor="middle">1.4e+02GW</text>
+<text x="613.8" y="308" fill="#c9d4e7" font-size="11" text-anchor="middle" transform="rotate(30 613.8,308)">2025年底</text>
+</svg>
+    </div>
+    <div class="chartbox">
+      <h4>2025 电力市场交易占比</h4>
+      <p class="note">电力市场交易电量66394亿千瓦时，占全社会用电量64%。绿电交易3285亿千瓦时，同比增长38.3%。</p>
+      <svg class="chart piechart" viewBox="0 0 620 360" role="img">
+<path d="M 180 180 L 180.0 65.0 A 115 115 0 1 1 91.2 253.1 Z" fill="#25d0a6" opacity="0.92"/>
+<rect x="340" y="60" width="12" height="12" rx="3" fill="#25d0a6"/>
+<text x="360" y="71" fill="#dce8fb" font-size="13">市场交易 64.0%</text>
+<path d="M 180 180 L 91.2 253.1 A 115 115 0 0 1 180.0 65.0 Z" fill="#4ea5ff" opacity="0.92"/>
+<rect x="340" y="90" width="12" height="12" rx="3" fill="#4ea5ff"/>
+<text x="360" y="101" fill="#dce8fb" font-size="13">非市场交易 36.0%</text>
+<circle cx="180" cy="180" r="62" fill="#0e1624"/>
+<text x="180" y="178" fill="#e8f3ff" font-size="18" text-anchor="middle">103682</text>
+<text x="180" y="200" fill="#8fa3bf" font-size="12" text-anchor="middle">合计</text>
+</svg>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="province">
+  <h2>2. 中国省区市机会分析：哪里最值得先做？</h2>
+  <p class="lead">省级市场不能只看人口或GDP，而要看“用电体量、工业客户密度、新能源资源、储能价值、碳压力、政策/示范机会、竞争强度”。下面的省域机会指数是可用于销售/产品布局的模型评分，建议后续用真实客户线索、公开电价、负荷曲线和地方政策继续校准。</p>
+
+  <div class="warn">
+    <b>数据边界说明：</b>官方公开数据可确认全国总量、部分省份用电增速、GDP和用电量前列省份、单位GDP电耗极值等；但“每个省完整客户侧项目机会”没有统一官方口径，因此这里采用模型评分。模型结果用于市场优先级，不用于正式统计披露。
+  </div>
+
+  <h3>2.1 省域机会评分模型</h3>
+  <div class="formula">省域机会指数 = 0.25×用电/工业需求 + 0.20×新能源与光伏资源 + 0.20×储能/电价调度价值 + 0.15×碳治理压力 + 0.10×政策/示范价值 + 0.10×客户付费与交付可行性 - 竞争折减</div>
+  <p class="note">竞争强度越高，说明客户入口和头部厂商越多，并不是机会低，而是需要更明确的差异化切入。</p>
+
+  <div class="grid grid-2">
+    <div class="chartbox">
+      <h4>省域机会指数 TOP15</h4>
+      <p class="note">优先围绕第一梯队建立客户画像和标准产品包。</p>
+      <svg class="chart" viewBox="0 0 820 500" role="img">
+<line x1="150.0" y1="25" x2="150.0" y2="460" stroke="#24324a" stroke-width="1"/>
+<text x="150.0" y="485" fill="#789" font-size="11" text-anchor="middle">0</text>
+<line x1="310.0" y1="25" x2="310.0" y2="460" stroke="#24324a" stroke-width="1"/>
+<text x="310.0" y="485" fill="#789" font-size="11" text-anchor="middle">23</text>
+<line x1="470.0" y1="25" x2="470.0" y2="460" stroke="#24324a" stroke-width="1"/>
+<text x="470.0" y="485" fill="#789" font-size="11" text-anchor="middle">46</text>
+<line x1="630.0" y1="25" x2="630.0" y2="460" stroke="#24324a" stroke-width="1"/>
+<text x="630.0" y="485" fill="#789" font-size="11" text-anchor="middle">69</text>
+<line x1="790.0" y1="25" x2="790.0" y2="460" stroke="#24324a" stroke-width="1"/>
+<text x="790.0" y="485" fill="#789" font-size="11" text-anchor="middle">92</text>
+<text x="140" y="40.7" fill="#c9d4e7" font-size="12" text-anchor="end">广东</text>
+<rect x="150" y="31.4" width="640.0" height="16.2" rx="6" fill="#25d0a6"/>
+<text x="798.0" y="41.2" fill="#e8f3ff" font-size="12">92</text>
+<text x="140" y="69.7" fill="#c9d4e7" font-size="12" text-anchor="end">江苏</text>
+<rect x="150" y="60.4" width="633.0" height="16.2" rx="6" fill="#25d0a6"/>
+<text x="791.0" y="70.2" fill="#e8f3ff" font-size="12">91</text>
+<text x="140" y="98.7" fill="#c9d4e7" font-size="12" text-anchor="end">内蒙古</text>
+<rect x="150" y="89.4" width="626.1" height="16.2" rx="6" fill="#25d0a6"/>
+<text x="784.1" y="99.2" fill="#e8f3ff" font-size="12">90</text>
+<text x="140" y="127.7" fill="#c9d4e7" font-size="12" text-anchor="end">浙江</text>
+<rect x="150" y="118.4" width="619.1" height="16.2" rx="6" fill="#25d0a6"/>
+<text x="777.1" y="128.2" fill="#e8f3ff" font-size="12">89</text>
+<text x="140" y="156.7" fill="#c9d4e7" font-size="12" text-anchor="end">山东</text>
+<rect x="150" y="147.4" width="612.2" height="16.2" rx="6" fill="#25d0a6"/>
+<text x="770.2" y="157.2" fill="#e8f3ff" font-size="12">88</text>
+<text x="140" y="185.7" fill="#c9d4e7" font-size="12" text-anchor="end">新疆</text>
+<rect x="150" y="176.4" width="612.2" height="16.2" rx="6" fill="#25d0a6"/>
+<text x="770.2" y="186.2" fill="#e8f3ff" font-size="12">88</text>
+<text x="140" y="214.7" fill="#c9d4e7" font-size="12" text-anchor="end">安徽</text>
+<rect x="150" y="205.4" width="598.3" height="16.2" rx="6" fill="#25d0a6"/>
+<text x="756.3" y="215.2" fill="#e8f3ff" font-size="12">86</text>
+<text x="140" y="243.7" fill="#c9d4e7" font-size="12" text-anchor="end">湖北</text>
+<rect x="150" y="234.4" width="584.3" height="16.2" rx="6" fill="#25d0a6"/>
+<text x="742.3" y="244.2" fill="#e8f3ff" font-size="12">84</text>
+<text x="140" y="272.7" fill="#c9d4e7" font-size="12" text-anchor="end">甘肃</text>
+<rect x="150" y="263.4" width="584.3" height="16.2" rx="6" fill="#25d0a6"/>
+<text x="742.3" y="273.2" fill="#e8f3ff" font-size="12">84</text>
+<text x="140" y="301.7" fill="#c9d4e7" font-size="12" text-anchor="end">上海</text>
+<rect x="150" y="292.4" width="584.3" height="16.2" rx="6" fill="#25d0a6"/>
+<text x="742.3" y="302.2" fill="#e8f3ff" font-size="12">84</text>
+<text x="140" y="330.7" fill="#c9d4e7" font-size="12" text-anchor="end">山西</text>
+<rect x="150" y="321.4" width="577.4" height="16.2" rx="6" fill="#25d0a6"/>
+<text x="735.4" y="331.2" fill="#e8f3ff" font-size="12">83</text>
+<text x="140" y="359.7" fill="#c9d4e7" font-size="12" text-anchor="end">河北</text>
+<rect x="150" y="350.4" width="570.4" height="16.2" rx="6" fill="#25d0a6"/>
+<text x="728.4" y="360.2" fill="#e8f3ff" font-size="12">82</text>
+<text x="140" y="388.7" fill="#c9d4e7" font-size="12" text-anchor="end">河南</text>
+<rect x="150" y="379.4" width="570.4" height="16.2" rx="6" fill="#25d0a6"/>
+<text x="728.4" y="389.2" fill="#e8f3ff" font-size="12">82</text>
+<text x="140" y="417.7" fill="#c9d4e7" font-size="12" text-anchor="end">青海</text>
+<rect x="150" y="408.4" width="570.4" height="16.2" rx="6" fill="#25d0a6"/>
+<text x="728.4" y="418.2" fill="#e8f3ff" font-size="12">82</text>
+<text x="140" y="446.7" fill="#c9d4e7" font-size="12" text-anchor="end">陕西</text>
+<rect x="150" y="437.4" width="563.5" height="16.2" rx="6" fill="#25d0a6"/>
+<text x="721.5" y="447.2" fill="#e8f3ff" font-size="12">81</text>
+</svg>
+    </div>
+    <div class="chartbox">
+      <h4>需求强度 vs 机会指数散点</h4>
+      <p class="note">右上角适合优先开拓；高机会但需求分散的省份适合新能源项目侧或示范项目。</p>
+      <svg class="chart" viewBox="0 0 820 380" role="img">
+<line x1="60.0" y1="30" x2="60.0" y2="325" stroke="#24324a"/>
+<line x1="60" y1="325.0" x2="790" y2="325.0" stroke="#24324a"/>
+<text x="60.0" y="355" fill="#789" font-size="11" text-anchor="middle">44</text>
+<text x="52" y="329.0" fill="#789" font-size="11" text-anchor="end">62</text>
+<line x1="242.5" y1="30" x2="242.5" y2="325" stroke="#24324a"/>
+<line x1="60" y1="251.2" x2="790" y2="251.2" stroke="#24324a"/>
+<text x="242.5" y="355" fill="#789" font-size="11" text-anchor="middle">58</text>
+<text x="52" y="255.2" fill="#789" font-size="11" text-anchor="end">70</text>
+<line x1="425.0" y1="30" x2="425.0" y2="325" stroke="#24324a"/>
+<line x1="60" y1="177.5" x2="790" y2="177.5" stroke="#24324a"/>
+<text x="425.0" y="355" fill="#789" font-size="11" text-anchor="middle">72</text>
+<text x="52" y="181.5" fill="#789" font-size="11" text-anchor="end">78</text>
+<line x1="607.5" y1="30" x2="607.5" y2="325" stroke="#24324a"/>
+<line x1="60" y1="103.8" x2="790" y2="103.8" stroke="#24324a"/>
+<text x="607.5" y="355" fill="#789" font-size="11" text-anchor="middle">86</text>
+<text x="52" y="107.8" fill="#789" font-size="11" text-anchor="end">87</text>
+<line x1="790.0" y1="30" x2="790.0" y2="325" stroke="#24324a"/>
+<line x1="60" y1="30.0" x2="790" y2="30.0" stroke="#24324a"/>
+<text x="790.0" y="355" fill="#789" font-size="11" text-anchor="middle">100</text>
+<text x="52" y="34.0" fill="#789" font-size="11" text-anchor="end">95</text>
+<circle cx="763.9" cy="56.8" r="11.8" fill="#25d0a6" opacity="0.78"><title>广东：机会92，需求98，竞争92</title></circle>
+<text x="778.7" y="60.8" fill="#dce8fb" font-size="11">广东</text>
+<circle cx="737.9" cy="65.8" r="12.2" fill="#25d0a6" opacity="0.78"><title>江苏：机会91，需求96，竞争90</title></circle>
+<text x="753.1" y="69.8" fill="#dce8fb" font-size="11">江苏</text>
+<circle cx="685.7" cy="83.6" r="12.2" fill="#25d0a6" opacity="0.78"><title>浙江：机会89，需求92，竞争88</title></circle>
+<text x="700.9" y="87.6" fill="#dce8fb" font-size="11">浙江</text>
+<circle cx="724.8" cy="92.6" r="12.5" fill="#25d0a6" opacity="0.78"><title>山东：机会88，需求95，竞争86</title></circle>
+<text x="740.3" y="96.6" fill="#dce8fb" font-size="11">山东</text>
+<circle cx="581.4" cy="110.5" r="12.1" fill="#25d0a6" opacity="0.78"><title>安徽：机会86，需求84，竞争74</title></circle>
+<text x="596.5" y="114.5" fill="#dce8fb" font-size="11">安徽</text>
+<circle cx="555.4" cy="74.7" r="13.7" fill="#25d0a6" opacity="0.78"><title>内蒙古：机会90，需求82，竞争74</title></circle>
+<text x="572.1" y="78.7" fill="#dce8fb" font-size="11">内蒙古</text>
+<circle cx="529.3" cy="92.6" r="13.5" fill="#25d0a6" opacity="0.78"><title>新疆：机会88，需求80，竞争70</title></circle>
+<text x="545.8" y="96.6" fill="#dce8fb" font-size="11">新疆</text>
+<circle cx="607.5" cy="146.2" r="12.3" fill="#4ea5ff" opacity="0.78"><title>河北：机会82，需求86，竞争82</title></circle>
+<circle cx="568.4" cy="128.3" r="11.8" fill="#4ea5ff" opacity="0.78"><title>湖北：机会84，需求83，竞争73</title></circle>
+<circle cx="633.6" cy="146.2" r="11.3" fill="#4ea5ff" opacity="0.78"><title>河南：机会82，需求88，竞争74</title></circle>
+<circle cx="503.2" cy="137.3" r="12.2" fill="#4ea5ff" opacity="0.78"><title>山西：机会83，需求78，竞争68</title></circle>
+<circle cx="529.3" cy="173.0" r="11.5" fill="#4ea5ff" opacity="0.78"><title>四川：机会79，需求80，竞争70</title></circle>
+<circle cx="477.1" cy="164.1" r="11.3" fill="#4ea5ff" opacity="0.78"><title>重庆：机会80，需求76，竞争68</title></circle>
+<circle cx="477.1" cy="182.0" r="11.5" fill="#4ea5ff" opacity="0.78"><title>福建：机会78，需求76，竞争72</title></circle>
+<circle cx="503.2" cy="155.2" r="12.3" fill="#4ea5ff" opacity="0.78"><title>陕西：机会81，需求78，竞争66</title></circle>
+<circle cx="398.9" cy="128.3" r="13.2" fill="#4ea5ff" opacity="0.78"><title>甘肃：机会84，需求70，竞争62</title></circle>
+<circle cx="346.8" cy="164.1" r="12.9" fill="#4ea5ff" opacity="0.78"><title>宁夏：机会80，需求66，竞争60</title></circle>
+<circle cx="294.6" cy="146.2" r="13.1" fill="#4ea5ff" opacity="0.78"><title>青海：机会82，需求62，竞争58</title></circle>
+<text x="310.7" y="150.2" fill="#dce8fb" font-size="11">青海</text>
+<circle cx="425.0" cy="190.9" r="12.1" fill="#4ea5ff" opacity="0.78"><title>云南：机会77，需求72，竞争58</title></circle>
+<circle cx="425.0" cy="190.9" r="11.6" fill="#4ea5ff" opacity="0.78"><title>广西：机会77，需求72，竞争62</title></circle>
+<circle cx="451.1" cy="182.0" r="11.4" fill="#4ea5ff" opacity="0.78"><title>湖南：机会78，需求74，竞争64</title></circle>
+<circle cx="425.0" cy="199.8" r="11.4" fill="#4ea5ff" opacity="0.78"><title>江西：机会76，需求72，竞争60</title></circle>
+<circle cx="503.2" cy="199.8" r="11.2" fill="#f5c451" opacity="0.78"><title>辽宁：机会76，需求78，竞争62</title></circle>
+<circle cx="346.8" cy="217.7" r="11.5" fill="#f5c451" opacity="0.78"><title>吉林：机会74，需求66，竞争56</title></circle>
+<circle cx="372.9" cy="226.7" r="11.6" fill="#f5c451" opacity="0.78"><title>黑龙江：机会73，需求68，竞争55</title></circle>
+<circle cx="607.5" cy="128.3" r="10.8" fill="#4ea5ff" opacity="0.78"><title>上海：机会84，需求86，竞争94</title></circle>
+<text x="621.3" y="132.3" fill="#dce8fb" font-size="11">上海</text>
+<circle cx="529.3" cy="164.1" r="10.3" fill="#4ea5ff" opacity="0.78"><title>北京：机会80，需求80，竞争93</title></circle>
+<text x="542.6" y="168.1" fill="#dce8fb" font-size="11">北京</text>
+<circle cx="425.0" cy="226.7" r="10.6" fill="#f5c451" opacity="0.78"><title>天津：机会73，需求72，竞争70</title></circle>
+<circle cx="346.8" cy="235.6" r="10.9" fill="#f5c451" opacity="0.78"><title>贵州：机会72，需求66，竞争54</title></circle>
+<circle cx="216.4" cy="253.5" r="11.1" fill="#f5c451" opacity="0.78"><title>海南：机会70，需求56，竞争54</title></circle>
+<circle cx="86.1" cy="298.2" r="11.7" fill="#9aa4b2" opacity="0.78"><title>西藏：机会65，需求46，竞争38</title></circle>
+<text x="100.8" y="302.2" fill="#dce8fb" font-size="11">西藏</text>
+<text x="410.0" y="375" fill="#9fb2cc" font-size="12" text-anchor="middle">需求强度评分：用电体量/工业园区/客户密度综合</text>
+<text x="15" y="190.0" fill="#9fb2cc" font-size="12" transform="rotate(-90 15,190.0)" text-anchor="middle">省域机会指数</text>
+</svg>
+    </div>
+  </div>
+
+  <h3>2.2 31省区市机会表与落地建议</h3>
+  <div class="filterbar">
+    <input id="provinceSearch" onkeyup="filterProvince()" placeholder="搜索省份/建议/痛点"/>
+    <select id="regionFilter" onchange="filterProvince()">
+      <option value="">全部区域</option><option value="华东">华东</option><option value="华南">华南</option><option value="华北">华北</option><option value="华中">华中</option><option value="西北">西北</option><option value="西南">西南</option><option value="东北">东北</option>
+    </select>
+    <select id="priorityFilter" onchange="filterProvince()">
+      <option value="">全部梯队</option><option value="第一梯队">第一梯队</option><option value="第二梯队">第二梯队</option><option value="第三梯队">第三梯队</option><option value="机会观察">机会观察</option>
+    </select>
+  </div>
+  <div style="overflow:auto; max-height:720px; border:1px solid var(--line); border-radius:16px;">
+    <table id="provinceTable">
+      <thead><tr>
+        <th>省区市</th><th>区域</th><th>优先级</th><th>机会</th><th>需求</th><th>新能源</th><th>储能</th><th>碳压力</th><th>竞争</th><th>推荐产品包</th><th>核心判断</th>
+      </tr></thead>
+      <tbody>
+<tr data-region="华南" data-priority="第一梯队">
+<td><b>广东</b></td><td>华南</td><td><span class="pill">第一梯队</span></td>
+<td class="num">92</td><td class="num">98</td><td class="num">72</td><td class="num">83</td><td class="num">86</td><td class="num">92</td>
+<td>园区综合能源、光储充、出口制造碳足迹、电力交易优化</td><td>制造业和外贸企业多，客户愿意为降本与绿电合规付费，但竞争极强</td>
+</tr>
+
+<tr data-region="华东" data-priority="第一梯队">
+<td><b>江苏</b></td><td>华东</td><td><span class="pill">第一梯队</span></td>
+<td class="num">91</td><td class="num">96</td><td class="num">78</td><td class="num">86</td><td class="num">88</td><td class="num">90</td>
+<td>工商业储能、工业节能、绿电/绿证、产品碳足迹</td><td>高端制造和园区密集，用电体量大，适合标准化复制</td>
+</tr>
+
+<tr data-region="华北" data-priority="第一梯队">
+<td><b>内蒙古</b></td><td>华北</td><td><span class="pill">第一梯队</span></td>
+<td class="num">90</td><td class="num">82</td><td class="num">98</td><td class="num">96</td><td class="num">92</td><td class="num">74</td>
+<td>新能源项目侧数据、独立储能、源网荷储、绿电交易</td><td>风光基地和储能价值高，但客户偏大型项目和央国企</td>
+</tr>
+
+<tr data-region="华东" data-priority="第一梯队">
+<td><b>浙江</b></td><td>华东</td><td><span class="pill">第一梯队</span></td>
+<td class="num">89</td><td class="num">92</td><td class="num">78</td><td class="num">86</td><td class="num">84</td><td class="num">88</td>
+<td>峰谷电价优化、用户侧储能、能耗监测、碳管理平台</td><td>民营制造活跃，负荷侧项目接受度高，适合轻量化数据产品切入</td>
+</tr>
+
+<tr data-region="华东/华北" data-priority="第一梯队">
+<td><b>山东</b></td><td>华东/华北</td><td><span class="pill">第一梯队</span></td>
+<td class="num">88</td><td class="num">95</td><td class="num">82</td><td class="num">88</td><td class="num">92</td><td class="num">86</td>
+<td>工业节能改造、储能削峰、碳排放治理、光伏运维</td><td>工业和煤电基础大，碳治理和能效改造空间高</td>
+</tr>
+
+<tr data-region="西北" data-priority="第一梯队">
+<td><b>新疆</b></td><td>西北</td><td><span class="pill">第一梯队</span></td>
+<td class="num">88</td><td class="num">80</td><td class="num">96</td><td class="num">94</td><td class="num">90</td><td class="num">70</td>
+<td>新能源基地、储能、微电网、工业负荷协同</td><td>新能源资源强、用电增速高，适合项目侧和园区能源平衡</td>
+</tr>
+
+<tr data-region="华东" data-priority="第一梯队">
+<td><b>安徽</b></td><td>华东</td><td><span class="pill">第一梯队</span></td>
+<td class="num">86</td><td class="num">84</td><td class="num">80</td><td class="num">82</td><td class="num">78</td><td class="num">74</td>
+<td>新制造园区能耗画像、储能测算、光伏+用电优化</td><td>2024用电增速高，新能源车/光伏/制造业拉动强</td>
+</tr>
+
+<tr data-region="华中" data-priority="第二梯队">
+<td><b>湖北</b></td><td>华中</td><td><span class="pill">第二梯队</span></td>
+<td class="num">84</td><td class="num">83</td><td class="num">76</td><td class="num">80</td><td class="num">78</td><td class="num">73</td>
+<td>制造园区能源管理、储能、光伏运维、能效评估</td><td>2024用电增速较快，汽车与电子制造可形成样板</td>
+</tr>
+
+<tr data-region="西北" data-priority="第二梯队">
+<td><b>甘肃</b></td><td>西北</td><td><span class="pill">第二梯队</span></td>
+<td class="num">84</td><td class="num">70</td><td class="num">94</td><td class="num">90</td><td class="num">80</td><td class="num">62</td>
+<td>新能源项目侧、储能、微电网、绿电消纳</td><td>风光资源突出，项目侧监测和储能调度价值高</td>
+</tr>
+
+<tr data-region="华东" data-priority="第二梯队">
+<td><b>上海</b></td><td>华东</td><td><span class="pill">第二梯队</span></td>
+<td class="num">84</td><td class="num">86</td><td class="num">58</td><td class="num">78</td><td class="num">84</td><td class="num">94</td>
+<td>碳足迹、能碳平台、楼宇节能、数据中心能耗</td><td>付费能力强、政策敏感，但硬件项目空间较小且竞争极强</td>
+</tr>
+
+<tr data-region="华北" data-priority="第二梯队">
+<td><b>山西</b></td><td>华北</td><td><span class="pill">第二梯队</span></td>
+<td class="num">83</td><td class="num">78</td><td class="num">82</td><td class="num">83</td><td class="num">95</td><td class="num">68</td>
+<td>煤电/焦化/钢铁节能、碳管理、储能调峰</td><td>传统高耗能产业集中，碳治理刚需强</td>
+</tr>
+
+<tr data-region="华北" data-priority="第二梯队">
+<td><b>河北</b></td><td>华北</td><td><span class="pill">第二梯队</span></td>
+<td class="num">82</td><td class="num">86</td><td class="num">84</td><td class="num">82</td><td class="num">86</td><td class="num">82</td>
+<td>工业节能、分布式光伏、钢铁/建材碳治理</td><td>环京制造和重工业多，碳压力与电价优化机会并存</td>
+</tr>
+
+<tr data-region="华中" data-priority="第二梯队">
+<td><b>河南</b></td><td>华中</td><td><span class="pill">第二梯队</span></td>
+<td class="num">82</td><td class="num">88</td><td class="num">70</td><td class="num">76</td><td class="num">84</td><td class="num">74</td>
+<td>工业节能、园区能耗监测、碳排放治理</td><td>用电基础大，客户数量多，适合低成本标准化产品</td>
+</tr>
+
+<tr data-region="西北" data-priority="第二梯队">
+<td><b>青海</b></td><td>西北</td><td><span class="pill">第二梯队</span></td>
+<td class="num">82</td><td class="num">62</td><td class="num">96</td><td class="num">86</td><td class="num">76</td><td class="num">58</td>
+<td>清洁能源基地、储能、绿电溯源、零碳园区</td><td>单位GDP电耗高、清洁能源占比高，适合绿电与储能</td>
+</tr>
+
+<tr data-region="西北" data-priority="第二梯队">
+<td><b>陕西</b></td><td>西北</td><td><span class="pill">第二梯队</span></td>
+<td class="num">81</td><td class="num">78</td><td class="num">82</td><td class="num">84</td><td class="num">86</td><td class="num">66</td>
+<td>工业节能、能源化工碳管理、储能调度</td><td>能源化工与装备制造并存，适合项目库和碳管理</td>
+</tr>
+
+<tr data-region="西南" data-priority="第二梯队">
+<td><b>重庆</b></td><td>西南</td><td><span class="pill">第二梯队</span></td>
+<td class="num">80</td><td class="num">76</td><td class="num">68</td><td class="num">78</td><td class="num">74</td><td class="num">68</td>
+<td>工业园区节能、负荷分析、综合能源托管</td><td>2024用电增速高，制造和商业建筑有节能空间</td>
+</tr>
+
+<tr data-region="西北" data-priority="第二梯队">
+<td><b>宁夏</b></td><td>西北</td><td><span class="pill">第二梯队</span></td>
+<td class="num">80</td><td class="num">66</td><td class="num">92</td><td class="num">86</td><td class="num">82</td><td class="num">60</td>
+<td>新能源+高耗能工业协同、储能、电碳管理</td><td>高能耗与高新能源并存，适合能碳一体化</td>
+</tr>
+
+<tr data-region="华北" data-priority="第二梯队">
+<td><b>北京</b></td><td>华北</td><td><span class="pill">第二梯队</span></td>
+<td class="num">80</td><td class="num">80</td><td class="num">54</td><td class="num">72</td><td class="num">82</td><td class="num">93</td>
+<td>碳管理平台、楼宇能效、数据中心/公共机构托管</td><td>单位GDP电耗低，适合高价值软件和碳管理</td>
+</tr>
+
+<tr data-region="西南" data-priority="第二梯队">
+<td><b>四川</b></td><td>西南</td><td><span class="pill">第二梯队</span></td>
+<td class="num">79</td><td class="num">80</td><td class="num">72</td><td class="num">78</td><td class="num">72</td><td class="num">70</td>
+<td>水电绿电、数据中心能耗、园区碳管理</td><td>水电资源强，适合绿电低碳和数据中心场景</td>
+</tr>
+
+<tr data-region="华东" data-priority="第二梯队">
+<td><b>福建</b></td><td>华东</td><td><span class="pill">第二梯队</span></td>
+<td class="num">78</td><td class="num">76</td><td class="num">74</td><td class="num">76</td><td class="num">72</td><td class="num">72</td>
+<td>分布式光伏、园区能耗、港口/制造碳足迹</td><td>制造业和港口物流带来碳足迹需求</td>
+</tr>
+
+<tr data-region="华中" data-priority="第二梯队">
+<td><b>湖南</b></td><td>华中</td><td><span class="pill">第二梯队</span></td>
+<td class="num">78</td><td class="num">74</td><td class="num">74</td><td class="num">74</td><td class="num">72</td><td class="num">64</td>
+<td>制造园区能耗、光伏、工业节能</td><td>中部制造和新能源装机增长形成机会</td>
+</tr>
+
+<tr data-region="西南" data-priority="第二梯队">
+<td><b>云南</b></td><td>西南</td><td><span class="pill">第二梯队</span></td>
+<td class="num">77</td><td class="num">72</td><td class="num">78</td><td class="num">84</td><td class="num">74</td><td class="num">58</td>
+<td>新能源配储、工业负荷协同、绿色电力</td><td>水风光资源和工业负荷并存，适合能量平衡</td>
+</tr>
+
+<tr data-region="华南" data-priority="第二梯队">
+<td><b>广西</b></td><td>华南</td><td><span class="pill">第二梯队</span></td>
+<td class="num">77</td><td class="num">72</td><td class="num">78</td><td class="num">74</td><td class="num">70</td><td class="num">62</td>
+<td>园区综合能源、光伏、储能、碳管理</td><td>新能源装机增长快，工业园区具备项目切入点</td>
+</tr>
+
+<tr data-region="华中/华东" data-priority="第二梯队">
+<td><b>江西</b></td><td>华中/华东</td><td><span class="pill">第二梯队</span></td>
+<td class="num">76</td><td class="num">72</td><td class="num">76</td><td class="num">72</td><td class="num">70</td><td class="num">60</td>
+<td>工商业光伏、能耗监测、锂电产业碳足迹</td><td>锂电和制造业客户适合产品碳足迹与能耗标准化</td>
+</tr>
+
+<tr data-region="东北" data-priority="第三梯队">
+<td><b>辽宁</b></td><td>东北</td><td><span class="pill">第三梯队</span></td>
+<td class="num">76</td><td class="num">78</td><td class="num">72</td><td class="num">72</td><td class="num">86</td><td class="num">62</td>
+<td>重工业节能、碳治理、配电监测</td><td>老工业基地，节能空间大但项目推进周期可能较长</td>
+</tr>
+
+<tr data-region="东北" data-priority="第三梯队">
+<td><b>吉林</b></td><td>东北</td><td><span class="pill">第三梯队</span></td>
+<td class="num">74</td><td class="num">66</td><td class="num">78</td><td class="num">72</td><td class="num">70</td><td class="num">56</td>
+<td>新能源消纳、工业节能、储能</td><td>新能源成为重要电源，适合项目侧数据</td>
+</tr>
+
+<tr data-region="东北" data-priority="第三梯队">
+<td><b>黑龙江</b></td><td>东北</td><td><span class="pill">第三梯队</span></td>
+<td class="num">73</td><td class="num">68</td><td class="num">80</td><td class="num">72</td><td class="num">72</td><td class="num">55</td>
+<td>风电光伏运维、工业节能、供热能效</td><td>新能源和供热场景结合空间大</td>
+</tr>
+
+<tr data-region="华北" data-priority="第三梯队">
+<td><b>天津</b></td><td>华北</td><td><span class="pill">第三梯队</span></td>
+<td class="num">73</td><td class="num">72</td><td class="num">62</td><td class="num">70</td><td class="num">78</td><td class="num">70</td>
+<td>港口工业节能、碳管理、综合能源</td><td>工业与港口场景有机会，但项目需找标杆客户</td>
+</tr>
+
+<tr data-region="西南" data-priority="第三梯队">
+<td><b>贵州</b></td><td>西南</td><td><span class="pill">第三梯队</span></td>
+<td class="num">72</td><td class="num">66</td><td class="num">70</td><td class="num">68</td><td class="num">68</td><td class="num">54</td>
+<td>数据中心能耗、绿电、园区能源管理</td><td>算力与电力资源结合，适合能耗和碳排平台</td>
+</tr>
+
+<tr data-region="华南" data-priority="第三梯队">
+<td><b>海南</b></td><td>华南</td><td><span class="pill">第三梯队</span></td>
+<td class="num">70</td><td class="num">56</td><td class="num">76</td><td class="num">66</td><td class="num">60</td><td class="num">54</td>
+<td>零碳园区、光储充、旅游商业节能</td><td>体量较小但示范价值高</td>
+</tr>
+
+<tr data-region="西南" data-priority="机会观察">
+<td><b>西藏</b></td><td>西南</td><td><span class="pill">机会观察</span></td>
+<td class="num">65</td><td class="num">46</td><td class="num">90</td><td class="num">64</td><td class="num">52</td><td class="num">38</td>
+<td>光伏/储能微网、离网保供、低碳示范</td><td>用电增速高、资源强，但商业化客户密度低</td>
+</tr>
+</tbody>
+    </table>
+  </div>
+
+  <h3>2.3 省域打法结论</h3>
+  <div class="grid grid-3">
+    <div class="card">
+      <h3>第一梯队：先做样板和规模化</h3>
+      <p><b>广东、江苏、浙江、山东、安徽、内蒙古、新疆</b>。这些地区要建立“标准化售前测算 + 可视化Demo + 行业客户画像”。沿海做客户侧，西北做项目侧。</p>
+      <div class="taglist"><span class="tag">光储充</span><span class="tag">工业节能</span><span class="tag">储能调度</span><span class="tag">碳足迹</span></div>
+    </div>
+    <div class="card">
+      <h3>第二梯队：做区域复制</h3>
+      <p><b>河北、湖北、河南、山西、四川、重庆、福建、陕西、甘肃、宁夏、青海等</b>。重点寻找园区、重工业、能源化工、数据中心、清洁能源示范项目。</p>
+      <div class="taglist"><span class="tag">园区能碳</span><span class="tag">碳治理</span><span class="tag">微电网</span><span class="tag">绿电管理</span></div>
+    </div>
+    <div class="card">
+      <h3>第三梯队：控制成本做轻量化</h3>
+      <p>东北、西南部分省份和海南、西藏等适合做示范、专项诊断或轻量产品，不建议重资产拓展。可通过政策项目、园区试点、单点诊断进入。</p>
+      <div class="taglist"><span class="tag">轻量看板</span><span class="tag">专项报告</span><span class="tag">政策示范</span><span class="tag">低成本交付</span></div>
+    </div>
+  </div>
+
+  <h3>2.4 分区域产品组合建议</h3>
+  <table>
+    <thead><tr><th>区域</th><th>优先客户</th><th>主推产品</th><th>不建议优先做</th><th>第一步动作</th></tr></thead>
+    <tbody>
+      <tr><td>华东/华南沿海</td><td>制造园区、出口企业、商业综合体、充电站</td><td>峰谷电价+储能、碳足迹、能耗监测、光储充</td><td>单纯卖表计或大屏</td><td>拿电费单+15分钟负荷做免费诊断，输出节省金额</td></tr>
+      <tr><td>华北/山东/河北/山西</td><td>钢铁、建材、煤化工、装备制造</td><td>工业节能、碳治理、需求响应、储能削峰</td><td>只讲绿色概念</td><td>做高耗能系统专项：空压、冷站、锅炉、变压器</td></tr>
+      <tr><td>西北</td><td>新能源项目、能源化工园区、大型基地</td><td>新能源项目侧监测、储能、源网荷储、绿电交易</td><td>轻量楼宇节能</td><td>先做新能源消纳、储能收益、限电/弃光诊断</td></tr>
+      <tr><td>西南</td><td>水电绿电、数据中心、工业园区</td><td>绿电碳管理、数据中心能耗、园区综合能源</td><td>只复制沿海电价模型</td><td>结合绿电优势做碳强度和产品低碳卖点</td></tr>
+      <tr><td>东北</td><td>老工业基地、新能源运维、供热系统</td><td>工业节能、供热能效、风光运维、碳管理</td><td>高客单价平台直接铺开</td><td>以专项诊断报告切入，先拿节能收益闭环</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="section" id="competitor">
+  <h2>3. 竞争对手分析：不要和硬件巨头正面对打，要做“数据产品闭环”</h2>
+  <p class="lead">综合能源、光储充、储能、能耗监测、碳管理这几个赛道已经不是空白市场。真正可行的差异化不是“我也做平台”，而是做出“省域客户画像 + 项目前期测算 + 诊断规则 + 商务报价 + 节能验证 + 碳核算”的组合能力。</p>
+
+  <div class="grid grid-2">
+    <div class="chartbox">
+      <h4>竞争强度示意</h4>
+      <p class="note">红色越高，说明越不适合用同质化方案硬碰硬。</p>
+      <svg class="chart" viewBox="0 0 820 360" role="img">
+<line x1="150.0" y1="25" x2="150.0" y2="320" stroke="#24324a" stroke-width="1"/>
+<text x="150.0" y="345" fill="#789" font-size="11" text-anchor="middle">0</text>
+<line x1="310.0" y1="25" x2="310.0" y2="320" stroke="#24324a" stroke-width="1"/>
+<text x="310.0" y="345" fill="#789" font-size="11" text-anchor="middle">24</text>
+<line x1="470.0" y1="25" x2="470.0" y2="320" stroke="#24324a" stroke-width="1"/>
+<text x="470.0" y="345" fill="#789" font-size="11" text-anchor="middle">48</text>
+<line x1="630.0" y1="25" x2="630.0" y2="320" stroke="#24324a" stroke-width="1"/>
+<text x="630.0" y="345" fill="#789" font-size="11" text-anchor="middle">71</text>
+<line x1="790.0" y1="25" x2="790.0" y2="320" stroke="#24324a" stroke-width="1"/>
+<text x="790.0" y="345" fill="#789" font-size="11" text-anchor="middle">95</text>
+<text x="140" y="47.8" fill="#c9d4e7" font-size="12" text-anchor="end">电网系</text>
+<rect x="150" y="34.3" width="640.0" height="23.6" rx="6" fill="#ff7d7d"/>
+<text x="798.0" y="48.6" fill="#e8f3ff" font-size="12">95</text>
+<text x="140" y="89.9" fill="#c9d4e7" font-size="12" text-anchor="end">储能系统</text>
+<rect x="150" y="76.4" width="606.3" height="23.6" rx="6" fill="#ff7d7d"/>
+<text x="764.3" y="90.7" fill="#e8f3ff" font-size="12">90</text>
+<text x="140" y="132.0" fill="#c9d4e7" font-size="12" text-anchor="end">光伏开发</text>
+<rect x="150" y="118.6" width="592.8" height="23.6" rx="6" fill="#ff7d7d"/>
+<text x="750.8" y="132.9" fill="#e8f3ff" font-size="12">88</text>
+<text x="140" y="174.2" fill="#c9d4e7" font-size="12" text-anchor="end">能源SaaS</text>
+<rect x="150" y="160.7" width="525.5" height="23.6" rx="6" fill="#ff7d7d"/>
+<text x="683.5" y="175.0" fill="#e8f3ff" font-size="12">78</text>
+<text x="140" y="216.3" fill="#c9d4e7" font-size="12" text-anchor="end">外资自动化</text>
+<rect x="150" y="202.8" width="512.0" height="23.6" rx="6" fill="#ff7d7d"/>
+<text x="670.0" y="217.2" fill="#e8f3ff" font-size="12">76</text>
+<text x="140" y="258.5" fill="#c9d4e7" font-size="12" text-anchor="end">碳咨询</text>
+<rect x="150" y="245.0" width="458.1" height="23.6" rx="6" fill="#ff7d7d"/>
+<text x="616.1" y="259.3" fill="#e8f3ff" font-size="12">68</text>
+<text x="140" y="300.6" fill="#c9d4e7" font-size="12" text-anchor="end">本地工程商</text>
+<rect x="150" y="287.1" width="431.2" height="23.6" rx="6" fill="#ff7d7d"/>
+<text x="589.2" y="301.5" fill="#e8f3ff" font-size="12">64</text>
+</svg>
+    </div>
+    <div class="card">
+      <h3>竞争格局的关键事实</h3>
+      <ul>
+        <li>储能系统集成商头部集中，2024全球储能系统集成排名中，阳光电源、中车株洲所、远景/华为、海博思创等中国厂商位居前列，说明硬件与系统集成竞争很强。</li>
+        <li>电网系企业在客户入口、计量、电网接入、政策协同方面优势明显，适合大型项目。</li>
+        <li>能源SaaS和能耗监测厂商很多，但大量产品停留在采集、看板、报表，缺少“项目收益与落地闭环”。</li>
+        <li>碳咨询机构有合规背书，但缺少实时能耗数据底座，能碳数据融合是机会。</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>3.1 竞争对手矩阵</h3>
+  <div style="overflow:auto;">
+    <table>
+      <thead><tr><th>竞争类型</th><th>代表企业</th><th>优势</th><th>短板/切口</th><th>建议打法</th></tr></thead>
+      <tbody>
+<tr><td><b>电网系综合能源/数字化</b></td><td>国网综合能源、南网能源、国网信通、南网数研院</td><td>资源、客户入口、计量/电网数据、项目背书强</td><td>市场化响应和轻量化产品迭代相对慢，常偏大型项目</td><td>不正面抢渠道，做客户侧细分诊断工具、数据标准化、项目收益验证插件</td></tr>
+
+<tr><td><b>电力设备与系统集成</b></td><td>国电南瑞、许继电气、特变电工、中国西电、平高电气</td><td>电网设备、自动化、站房系统经验深</td><td>偏电网/设备项目，客户侧能碳运营产品未必灵活</td><td>切入园区/工厂侧，用业务指标、收益测算和低成本看板做差异化</td></tr>
+
+<tr><td><b>储能系统集成商</b></td><td>阳光电源、宁德时代、比亚迪、华为数字能源、中车株洲所、海博思创、远景储能</td><td>硬件、系统集成、交付能力强，海外订单和品牌强</td><td>项目测算通常服务于设备销售，未必深做客户运营复盘</td><td>做第三方储能收益诊断、调度复盘、容量配置校核，成为客户侧评估工具</td></tr>
+
+<tr><td><b>光伏组件/逆变器/开发商</b></td><td>隆基、晶科、天合、晶澳、正泰、阳光、特变电工新能源</td><td>供应链成熟、工程交付和融资能力强</td><td>容易陷入价格竞争，数据闭环和长期运营参差不齐</td><td>提供光伏发电偏差诊断、自用率优化、储能匹配分析</td></tr>
+
+<tr><td><b>能源数字化/SaaS</b></td><td>朗新科技、远光软件、安科瑞、科远智慧、各类能耗平台厂商</td><td>产品化强，表计接入、报表和平台交付经验多</td><td>很多系统停留在监测报表，项目测算与商业闭环不足</td><td>突出“数据分析+项目模型+商务报价+节能验收”的闭环</td></tr>
+
+<tr><td><b>建筑/工业自动化外资</b></td><td>施耐德、西门子、霍尼韦尔、江森自控、ABB</td><td>控制系统、楼宇和工业自动化经验强，品牌认可度高</td><td>价格高、本地项目灵活度有限，碳核算本地口径需适配</td><td>在中小园区/工厂做轻量部署，强调本地政策和报价模型</td></tr>
+
+<tr><td><b>碳核算/认证咨询</b></td><td>SGS、TÜV、CTI华测、方圆认证、各类双碳咨询机构</td><td>合规和第三方背书强，适合披露认证</td><td>不一定具备实时能耗数据和项目运营闭环</td><td>做能耗数据底座、产品碳足迹活动数据管理、碳因子库</td></tr>
+</tbody>
+    </table>
+  </div>
+
+  <h3>3.2 你的差异化定位</h3>
+  <div class="good">
+    <b>建议定位：</b>不要定位成“另一个能耗监测平台”，而是定位成“能源项目数据分析与收益验证产品”。核心服务是：拿客户数据，快速判断项目能不能做、做多大、收益多少、风险在哪里、后续如何验收。
+  </div>
+  <table>
+    <thead><tr><th>同质化做法</th><th>问题</th><th>推荐差异化做法</th></tr></thead>
+    <tbody>
+      <tr><td>做大屏、接表计、展示用电量</td><td>太容易被安科瑞、朗新、各地集成商替代</td><td>做“数据诊断结论+收益测算+改造建议+报告导出”</td></tr>
+      <tr><td>卖光伏/储能设备</td><td>会和阳光、华为、宁德、比亚迪等硬件强者竞争</td><td>做第三方配置校核、自用率测算、调度收益复盘</td></tr>
+      <tr><td>做碳咨询报告</td><td>合规资质和品牌不一定强</td><td>做活动数据管理、碳因子库、产品碳足迹数据底座</td></tr>
+      <tr><td>只做项目建议书</td><td>一次性交付，复用率低</td><td>沉淀省域画像、客户画像、指标库、模板库、案例复盘库</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="section" id="energy-types">
+  <h2>4. 各类能源与业务场景的数据分析框架</h2>
+  <p class="lead">你之前问到水电、光伏、储能、暖通、工业用电、园区综合能源。落地时不应按“能源品种介绍”来做，而要按“数据对象—核心指标—异常诊断—项目动作”来设计。</p>
+
+  <table>
+    <thead><tr><th>场景</th><th>核心数据</th><th>关键指标</th><th>要挖掘的问题</th><th>可落地动作</th></tr></thead>
+    <tbody>
+      <tr><td>水电/水系统</td><td>水表、泵电耗、流量、压力、夜间最小流量</td><td>单位水耗、泵单耗、漏损率、循环水利用率</td><td>漏水、泵效率低、冷却塔补水异常</td><td>分区计量、泵变频、漏损排查、冷却水优化</td></tr>
+      <tr><td>光伏</td><td>装机、逆变器、组串、发电量、辐照、负荷曲线</td><td>PR、自用率、上网率、弃光率、单位容量发电量</td><td>发电低于预期、自用不足、逆变器偏差</td><td>清洗维护、故障排查、储能配置、负荷转移</td></tr>
+      <tr><td>储能</td><td>充放电功率、SOC、SOH、效率、电价、负荷</td><td>往返效率、循环次数、削峰贡献、套利收益</td><td>放电错时、收益低、循环不足、衰减快</td><td>调度策略重构、容量校核、需量阈值控制</td></tr>
+      <tr><td>暖通/冷站</td><td>冷量、电耗、温湿度、流量、供回水温差、天气</td><td>COP、单位冷量电耗、输配系数、温湿度达标率</td><td>主机低效、大流量小温差、泵塔能耗高</td><td>群控优化、水泵变频、温度重设、末端控制</td></tr>
+      <tr><td>工业用电</td><td>15分钟负荷、产量、班次、工单、设备运行</td><td>单位产品电耗、峰谷占比、最大需量、夜间基荷</td><td>产量不变但电耗上升、待机空载、峰段过高</td><td>错峰生产、设备关停策略、空压/电机节能</td></tr>
+      <tr><td>园区综合能源</td><td>电水气热冷、租户、建筑、光储、碳因子、项目台账</td><td>综合能耗、能源成本、碳强度、绿电占比、闭合率</td><td>总分表不闭合、费用分摊不合理、碳预算超进度</td><td>统一编码、总分表治理、能碳驾驶舱、托管报价</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="section" id="models">
+  <h2>5. 能耗核算、能效分析、峰谷电价、新能源测算、碳核算的模型逻辑</h2>
+
+  <div class="grid grid-2">
+    <div class="card">
+      <h3>5.1 能耗核算</h3>
+      <div class="formula">综合能耗 = Σ（能源实物量 × 折标系数）</div>
+      <p>应以 GB/T 2589-2020 作为综合能耗口径基础，先明确组织边界、计量边界、能源品种、统计周期，再进行折标。</p>
+    </div>
+    <div class="card">
+      <h3>5.2 能效分析</h3>
+      <div class="formula">能效偏差 = 实际单位能耗 - 基准单位能耗</div>
+      <p>工业场景必须绑定产量，暖通必须做天气归一化，光伏必须结合辐照，储能必须扣除效率和衰减。</p>
+    </div>
+    <div class="card">
+      <h3>5.3 峰谷电价分析</h3>
+      <div class="formula">电费 = 电度电费 + 基本/需量电费 + 力调电费 + 附加/交易费用</div>
+      <p>客户侧储能、错峰生产、需求响应的价值，必须基于15分钟负荷曲线和分时电价测算。</p>
+    </div>
+    <div class="card">
+      <h3>5.4 碳排放与碳足迹</h3>
+      <div class="formula">碳排放 = 活动数据 × 排放因子
+产品碳足迹 = Σ（生命周期活动数据 × 因子 × 分摊系数）</div>
+      <p>企业碳盘查看组织边界，产品碳足迹看生命周期边界，项目减排看基准情景和项目后情景。</p>
+    </div>
+  </div>
+
+  <h3>5.5 五个必须沉淀的数据模型</h3>
+  <table>
+    <thead><tr><th>模型</th><th>输入数据</th><th>输出结果</th><th>应用场景</th><th>风险点</th></tr></thead>
+    <tbody>
+      <tr><td>能源基线模型</td><td>历史能耗、产量、天气、运行时间</td><td>调整后基准能耗</td><td>节能验收、托管报价</td><td>基准期异常会导致收益失真</td></tr>
+      <tr><td>15分钟负荷模型</td><td>负荷曲线、电价、需量、班次</td><td>峰谷结构、需量风险、可转移负荷</td><td>储能、错峰、需求响应</td><td>没有曲线只能粗估</td></tr>
+      <tr><td>光伏消纳模型</td><td>屋顶、辐照、装机、负荷、上网模式</td><td>发电量、自用率、上网量、收益</td><td>工商业光伏、光储</td><td>把发电量都当节省电费是错误的</td></tr>
+      <tr><td>储能调度模型</td><td>负荷、电价、储能功率/容量、效率/SOH</td><td>充放电策略、套利、削峰、循环</td><td>工商业储能、微电网</td><td>只看价差不看衰减和需量会高估收益</td></tr>
+      <tr><td>碳核算模型</td><td>电、气、油、热、蒸汽、绿电、因子</td><td>Scope1/2、碳强度、减排量</td><td>碳管理、碳足迹、项目减排</td><td>因子版本、绿电口径和分摊规则要可追溯</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="section" id="projects">
+  <h2>6. 综合能源、光伏储能、工业节能、碳治理项目的数据化打法</h2>
+  <p class="lead">项目机会不是“客户说想省电”就能做，而要先用数据判断：能不能做、做多大、怎么报价、收益怎么验证、风险谁承担。</p>
+
+  <div class="chartbox">
+    <h4>项目产品化优先级评分</h4>
+    <p class="note">评分基于复用频率、数据可得性、商业价值、交付标准化程度和客户付费意愿。</p>
+    <svg class="chart" viewBox="0 0 820 440" role="img">
+<line x1="150.0" y1="25" x2="150.0" y2="400" stroke="#24324a" stroke-width="1"/>
+<text x="150.0" y="425" fill="#789" font-size="11" text-anchor="middle">0</text>
+<line x1="310.0" y1="25" x2="310.0" y2="400" stroke="#24324a" stroke-width="1"/>
+<text x="310.0" y="425" fill="#789" font-size="11" text-anchor="middle">24</text>
+<line x1="470.0" y1="25" x2="470.0" y2="400" stroke="#24324a" stroke-width="1"/>
+<text x="470.0" y="425" fill="#789" font-size="11" text-anchor="middle">47</text>
+<line x1="630.0" y1="25" x2="630.0" y2="400" stroke="#24324a" stroke-width="1"/>
+<text x="630.0" y="425" fill="#789" font-size="11" text-anchor="middle">70</text>
+<line x1="790.0" y1="25" x2="790.0" y2="400" stroke="#24324a" stroke-width="1"/>
+<text x="790.0" y="425" fill="#789" font-size="11" text-anchor="middle">94</text>
+<text x="140" y="47.5" fill="#c9d4e7" font-size="12" text-anchor="end">工商业储能调度收益</text>
+<rect x="150" y="34.2" width="640.0" height="23.3" rx="6" fill="#4ea5ff"/>
+<text x="798.0" y="48.3" fill="#e8f3ff" font-size="12">94</text>
+<text x="140" y="89.2" fill="#c9d4e7" font-size="12" text-anchor="end">工商业光伏自用率测算</text>
+<rect x="150" y="75.8" width="626.4" height="23.3" rx="6" fill="#4ea5ff"/>
+<text x="784.4" y="90.0" fill="#e8f3ff" font-size="12">92</text>
+<text x="140" y="130.8" fill="#c9d4e7" font-size="12" text-anchor="end">综合能源托管测算</text>
+<rect x="150" y="117.5" width="599.1" height="23.3" rx="6" fill="#4ea5ff"/>
+<text x="757.1" y="131.7" fill="#e8f3ff" font-size="12">88</text>
+<text x="140" y="172.5" fill="#c9d4e7" font-size="12" text-anchor="end">工业节能诊断</text>
+<rect x="150" y="159.2" width="585.5" height="23.3" rx="6" fill="#4ea5ff"/>
+<text x="743.5" y="173.3" fill="#e8f3ff" font-size="12">86</text>
+<text x="140" y="214.2" fill="#c9d4e7" font-size="12" text-anchor="end">园区碳管理平台</text>
+<rect x="150" y="200.8" width="571.9" height="23.3" rx="6" fill="#4ea5ff"/>
+<text x="729.9" y="215.0" fill="#e8f3ff" font-size="12">84</text>
+<text x="140" y="255.8" fill="#c9d4e7" font-size="12" text-anchor="end">冷站/空压专项诊断</text>
+<rect x="150" y="242.5" width="558.3" height="23.3" rx="6" fill="#4ea5ff"/>
+<text x="716.3" y="256.7" fill="#e8f3ff" font-size="12">82</text>
+<text x="140" y="297.5" fill="#c9d4e7" font-size="12" text-anchor="end">光储充一体化</text>
+<rect x="150" y="284.2" width="537.9" height="23.3" rx="6" fill="#4ea5ff"/>
+<text x="695.9" y="298.3" fill="#e8f3ff" font-size="12">79</text>
+<text x="140" y="339.2" fill="#c9d4e7" font-size="12" text-anchor="end">产品碳足迹核算</text>
+<rect x="150" y="325.8" width="517.4" height="23.3" rx="6" fill="#4ea5ff"/>
+<text x="675.4" y="340.0" fill="#e8f3ff" font-size="12">76</text>
+<text x="140" y="380.8" fill="#c9d4e7" font-size="12" text-anchor="end">微电网源网荷储仿真</text>
+<rect x="150" y="367.5" width="490.2" height="23.3" rx="6" fill="#4ea5ff"/>
+<text x="648.2" y="381.7" fill="#e8f3ff" font-size="12">72</text>
+</svg>
+  </div>
+
+  <table>
+    <thead><tr><th>项目包</th><th>优先级</th><th>必要输入</th><th>核心输出</th></tr></thead>
+    <tbody><tr><td><b>工商业储能调度收益</b></td><td class='num'>94</td><td>15分钟负荷+分时电价+需量规则</td><td>容量配置、削峰收益、套利收益、回收期</td></tr><tr><td><b>工商业光伏自用率测算</b></td><td class='num'>92</td><td>屋顶+负荷曲线+辐照+上网模式</td><td>装机容量、发电量、自用率、上网量</td></tr><tr><td><b>综合能源托管测算</b></td><td class='num'>88</td><td>账单+设备台账+运维成本+基准期</td><td>托管报价、节能分享、风险边界</td></tr><tr><td><b>工业节能诊断</b></td><td class='num'>86</td><td>设备电耗+产量+工况+运行时长</td><td>节能量、改造优先级、投资回收</td></tr><tr><td><b>园区碳管理平台</b></td><td class='num'>84</td><td>能耗+碳因子+组织边界+绿电</td><td>Scope1/2、碳强度、碳预算</td></tr><tr><td><b>冷站/空压专项诊断</b></td><td class='num'>82</td><td>冷量/气量+电耗+压力/温差</td><td>COP、单耗、异常和节能措施</td></tr><tr><td><b>光储充一体化</b></td><td class='num'>79</td><td>充电负荷+光伏+储能+变压器容量</td><td>容量配置、削峰、消纳和收益</td></tr><tr><td><b>产品碳足迹核算</b></td><td class='num'>76</td><td>BOM+工序能耗+供应商因子+物流</td><td>单位产品碳足迹、热点环节</td></tr><tr><td><b>微电网源网荷储仿真</b></td><td class='num'>72</td><td>负荷+新能源+储能+备用电源+拓扑</td><td>自平衡率、可靠性、成本和碳排</td></tr></tbody>
+  </table>
+
+  <h3>6.1 项目前期数据测算清单</h3>
+  <table>
+    <thead><tr><th>数据类型</th><th>具体字段</th><th>适用项目</th><th>拿不到时如何处理</th></tr></thead>
+    <tbody>
+      <tr><td>能源账单</td><td>近24个月电水气热冷费用、用量、需量</td><td>托管、节能、碳</td><td>至少拿12个月；不足时只能粗测，不建议承诺节能量</td></tr>
+      <tr><td>负荷曲线</td><td>15分钟功率、电量、峰值时间</td><td>储能、峰谷、光储充</td><td>用电费尖峰数据估算，但可信度降级</td></tr>
+      <tr><td>设备台账</td><td>冷机、空压、锅炉、变压器、泵、风机</td><td>节能改造、托管</td><td>先做现场盘点，建立设备编码</td></tr>
+      <tr><td>生产/经营数据</td><td>产量、班次、工单、营业时间、入住率</td><td>工业节能、建筑节能</td><td>用代理变量，如开机小时、订单量、人数</td></tr>
+      <tr><td>光伏资源</td><td>屋顶面积、荷载、遮挡、辐照、并网点</td><td>光伏、光储</td><td>先用GIS/图纸粗测，现场尽调后修正</td></tr>
+      <tr><td>电价/交易</td><td>分时电价、需量计费、售电合同、现货规则</td><td>储能、电价优化</td><td>使用当地公开代理购电价格做初版，合同前必须核实</td></tr>
+      <tr><td>碳数据</td><td>活动数据、排放因子、绿电/绿证、产品BOM</td><td>碳管理、碳足迹</td><td>先区分实测数据和行业平均因子</td></tr>
+    </tbody>
+  </table>
+
+  <h3>6.2 商务报价建议</h3>
+  <div class="grid grid-3">
+    <div class="card">
+      <h3>低门槛切入</h3>
+      <p>先卖“诊断报告/测算工具/看板Demo”，价格可以较低，但必须拿到客户真实数据，为后续项目转化做基础。</p>
+    </div>
+    <div class="card">
+      <h3>中期转项目</h3>
+      <p>当发现峰谷价差、最大需量、冷站COP、空压单耗、光伏自用率等有确定空间时，转节能改造、储能、托管或光储项目。</p>
+    </div>
+    <div class="card">
+      <h3>长期做托管</h3>
+      <p>当客户有多系统、多园区、多租户、多项目时，推进能源托管或能碳平台，按年服务费+节能分享收费。</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="platform">
+  <h2>7. 智慧能源管理平台与能耗监测系统的数据逻辑</h2>
+  <p class="lead">平台设计的关键不是先画大屏，而是先定义“对象层级、计量关系、指标口径、模型规则、告警工单、报告输出”。</p>
+
+  <div class="formula">采集层 → 数据治理层 → 主数据层 → 指标计算层 → 模型诊断层 → 可视化层 → 告警工单层 → 报告输出层</div>
+
+  <h3>7.1 数据表设计</h3>
+  <table>
+    <thead><tr><th>表/模块</th><th>作用</th><th>关键字段</th></tr></thead>
+    <tbody>
+      <tr><td>组织/园区/建筑表</td><td>定义统计对象</td><td>组织ID、园区ID、建筑ID、面积、行业、责任人</td></tr>
+      <tr><td>设备台账表</td><td>设备能效和运维基础</td><td>设备ID、系统、容量、品牌、投运时间、额定效率</td></tr>
+      <tr><td>表计台账表</td><td>把计量点和业务对象绑定</td><td>表计ID、能源类型、倍率、上级表、所属设备/区域</td></tr>
+      <tr><td>采集明细表</td><td>分钟/15分钟级数据</td><td>时间戳、读数、增量、功率、质量标记</td></tr>
+      <tr><td>日/月汇总表</td><td>支撑报表和看板</td><td>对象ID、周期、能耗、成本、碳排、同比环比</td></tr>
+      <tr><td>电价/碳因子表</td><td>支撑成本与碳核算</td><td>省份、用户类型、尖峰平谷、因子版本、生效日期</td></tr>
+      <tr><td>项目台账表</td><td>沉淀项目机会和收益</td><td>项目类型、投资、收益、节能量、减排量、状态</td></tr>
+      <tr><td>告警工单表</td><td>形成运营闭环</td><td>规则ID、对象ID、影响金额、责任人、处理状态</td></tr>
+    </tbody>
+  </table>
+
+  <h3>7.2 系统必须输出的不是图，而是业务动作</h3>
+  <table>
+    <thead><tr><th>看板发现</th><th>诊断逻辑</th><th>业务动作</th></tr></thead>
+    <tbody>
+      <tr><td>夜间基荷偏高</td><td>非生产时段负荷超过历史阈值</td><td>排查空压、泵、照明、待机设备，生成工单</td></tr>
+      <tr><td>最大需量短时冲高</td><td>峰值持续时间短但接近合同需量</td><td>储能削峰、错峰启动、需量预警</td></tr>
+      <tr><td>光伏自用率低</td><td>中午发电高于负荷，余电上网比例高</td><td>配储能、调整负荷、降低装机或优化上网策略</td></tr>
+      <tr><td>冷站COP下降</td><td>同天气同负荷下单位冷量电耗上升</td><td>检查冷却水、主机、泵塔、温差和群控策略</td></tr>
+      <tr><td>碳强度上升</td><td>产量/产值没有同步上升，但碳排增加</td><td>节能项目、绿电采购、设备效率优化</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="section" id="visual">
+  <h2>8. 可视化系统设计：智慧能源、能耗监测、碳管理平台看板</h2>
+  <p class="lead">可视化设计要按用户角色分层：管理层看总览，运营看异常，项目人员看收益，碳管理看边界和因子，运维人员看设备和工单。</p>
+
+  <div class="grid grid-3">
+    <div class="card"><h3>管理层驾驶舱</h3><p>能源费用、综合能耗、碳排、绿电占比、项目收益、异常数量、预算完成率。</p></div>
+    <div class="card"><h3>运营分析中心</h3><p>15分钟负荷、峰谷占比、夜间基荷、同类对标、异常告警、能源平衡。</p></div>
+    <div class="card"><h3>设备能效看板</h3><p>冷站COP、空压单耗、变压器负载率、光伏PR、储能SOC/SOH、工单闭环。</p></div>
+    <div class="card"><h3>光储微电网看板</h3><p>源网荷储曲线、光伏出力、储能调度、上网/购电功率、消纳率。</p></div>
+    <div class="card"><h3>项目收益看板</h3><p>基线、实际、节能量、节省费用、减排量、回收期、IRR、偏差原因。</p></div>
+    <div class="card"><h3>碳管理看板</h3><p>Scope1/2、碳预算、碳强度、绿电、产品碳足迹、因子版本、减排项目。</p></div>
+  </div>
+
+  <h3>8.1 图表选择逻辑</h3>
+  <table>
+    <thead><tr><th>问题</th><th>推荐图表</th><th>不要这样做</th></tr></thead>
+    <tbody>
+      <tr><td>趋势变化</td><td>折线图、柱线组合</td><td>不要用饼图表达时间趋势</td></tr>
+      <tr><td>能源结构</td><td>堆叠柱、环图、桑基图</td><td>不要只放一堆数字卡</td></tr>
+      <tr><td>高耗能对象排名</td><td>横向条形图</td><td>不要用颜色杂乱的3D图</td></tr>
+      <tr><td>峰谷负荷</td><td>15分钟负荷曲线+阈值线</td><td>不要只放日累计电量</td></tr>
+      <tr><td>空间分布</td><td>地图、楼层热力图、园区平面图</td><td>不要把所有楼栋混在一个表里</td></tr>
+      <tr><td>项目收益</td><td>现金流曲线、瀑布图、回收期排名</td><td>不要只写“预计节省XX%”</td></tr>
+      <tr><td>碳足迹</td><td>生命周期贡献图、BOM碳排排名</td><td>不要只给一个总数</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="section" id="product">
+  <h2>9. 能源数据产品沉淀：从项目交付变成资产库</h2>
+  <p class="lead">你要沉淀的不是文件夹，而是可复用的数据资产：行业研究库、客户画像库、指标体系库、模型库、诊断规则库、可视化模板库、报告模板库、案例复盘库。</p>
+
+  <h3>9.1 数据产品资产库结构</h3>
+  <div class="grid grid-4">
+    <div class="card"><h4>行业研究库</h4><p>分布式能源、综合能源、光储充、微电网、节能改造、碳管理。</p></div>
+    <div class="card"><h4>客户画像库</h4><p>园区、工厂、医院、学校、商业、数据中心、站房。</p></div>
+    <div class="card"><h4>指标体系库</h4><p>能耗、成本、负荷、设备、新能源、储能、碳、项目、数据质量。</p></div>
+    <div class="card"><h4>测算模型库</h4><p>光伏、储能、托管、节能、微电网、碳足迹、项目收益。</p></div>
+    <div class="card"><h4>诊断规则库</h4><p>夜间基荷、峰谷异常、COP下降、光伏低发、储能错峰。</p></div>
+    <div class="card"><h4>可视化模板库</h4><p>能源驾驶舱、设备诊断、项目收益、碳管理、数据质量。</p></div>
+    <div class="card"><h4>报告模板库</h4><p>日报、周报、月报、专项诊断、商务方案、节能验证、碳报告。</p></div>
+    <div class="card"><h4>案例复盘库</h4><p>前期测算、实际收益、偏差原因、风险教训、可复制程度。</p></div>
+  </div>
+
+  <h3>9.2 最先沉淀的 6 个底层资产</h3>
+  <table>
+    <thead><tr><th>资产</th><th>为什么先做</th><th>具体产物</th></tr></thead>
+    <tbody>
+      <tr><td>客户画像模板</td><td>决定项目是否有机会</td><td>行业、用能特征、痛点、适配产品、风险标签</td></tr>
+      <tr><td>15分钟负荷分析模板</td><td>储能、峰谷、电费优化都依赖它</td><td>峰谷占比、最大需量、夜间基荷、可转移负荷</td></tr>
+      <tr><td>光伏/储能测算模板</td><td>客户最容易理解收益</td><td>装机、自用率、充放电策略、收益、回收期</td></tr>
+      <tr><td>节能诊断规则库</td><td>让报告从描述变成诊断</td><td>异常规则、可能原因、影响金额、建议动作</td></tr>
+      <tr><td>指标口径库</td><td>防止不同项目口径混乱</td><td>指标名称、公式、数据源、周期、是否可加总</td></tr>
+      <tr><td>案例复盘库</td><td>提高模型准确性</td><td>测算值、实际值、偏差原因、可复用经验</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="section" id="actions">
+  <h2>10. 可落地建议：90天做出可交付的能源数据产品雏形</h2>
+
+  <h3>10.1 产品切入顺序</h3>
+  <div class="grid grid-3">
+    <div class="card">
+      <h3>第1步：低成本诊断包</h3>
+      <p><b>目标：</b>用客户已有账单和负荷曲线快速出结论。</p>
+      <ul><li>能源账单分析</li><li>15分钟负荷分析</li><li>峰谷电价优化</li><li>夜间基荷异常</li><li>初步项目机会清单</li></ul>
+    </div>
+    <div class="card">
+      <h3>第2步：项目测算包</h3>
+      <p><b>目标：</b>直接支持商务报价。</p>
+      <ul><li>光伏装机与自用率</li><li>储能容量与收益</li><li>节能改造投资回收</li><li>托管基准费用</li><li>碳减排量</li></ul>
+    </div>
+    <div class="card">
+      <h3>第3步：平台/长期服务</h3>
+      <p><b>目标：</b>形成长期收入和数据壁垒。</p>
+      <ul><li>智慧能源看板</li><li>设备能效诊断</li><li>告警工单闭环</li><li>项目收益验证</li><li>碳管理与碳足迹</li></ul>
+    </div>
+  </div>
+
+  <h3>10.2 90天路线图</h3>
+  <table>
+    <thead><tr><th>时间</th><th>目标</th><th>具体任务</th><th>验收结果</th></tr></thead>
+    <tbody>
+      <tr><td>第1-15天</td><td>建立底层模板</td><td>整理指标库、客户画像表、数据清单、政策标准库</td><td>能拿客户数据做第一版诊断</td></tr>
+      <tr><td>第16-30天</td><td>做出负荷/账单分析工具</td><td>Excel/Python/网页模板：峰谷、需量、夜间基荷、成本拆解</td><td>输出标准化《用能诊断报告》</td></tr>
+      <tr><td>第31-50天</td><td>做光伏储能测算</td><td>装机容量、自用率、储能容量、充放电、收益、回收期</td><td>输出《光储方案测算报告》</td></tr>
+      <tr><td>第51-70天</td><td>做节能与碳模型</td><td>冷站/空压/工业节能、Scope1/2、产品碳足迹数据模板</td><td>输出《节能与碳核算报告》</td></tr>
+      <tr><td>第71-90天</td><td>做可视化Demo和案例库</td><td>能源驾驶舱、项目收益看板、碳管理看板、案例复盘</td><td>形成可演示、可复用、可报价的数据产品雏形</td></tr>
+    </tbody>
+  </table>
+
+  <h3>10.3 省域销售优先级建议</h3>
+  <table>
+    <thead><tr><th>优先级</th><th>省份</th><th>主推客户</th><th>主推产品</th><th>销售话术核心</th></tr></thead>
+    <tbody>
+      <tr><td>最高</td><td>广东、江苏、浙江、山东</td><td>制造园区、出口企业、充电站、商业综合体</td><td>储能收益、光伏自用率、碳足迹、能耗看板</td><td>“先用你的电费单和负荷曲线，测出每年能省多少钱。”</td></tr>
+      <tr><td>高</td><td>安徽、湖北、河南、河北、山西</td><td>工业园区、装备制造、建材钢铁</td><td>工业节能、峰谷用电、碳排治理</td><td>“把高耗能系统拆开，找到最先回本的改造项目。”</td></tr>
+      <tr><td>高</td><td>内蒙古、新疆、甘肃、青海、宁夏</td><td>新能源基地、能源化工园区</td><td>储能调度、新能源消纳、微电网、绿电</td><td>“不是只看装机，而是看消纳、限发、储能调用和收益。”</td></tr>
+      <tr><td>中</td><td>四川、重庆、云南、广西、福建</td><td>园区、数据中心、制造企业</td><td>绿电低碳、综合能源、能耗监测</td><td>“用绿电和能效数据支撑低碳产品和客户认证。”</td></tr>
+      <tr><td>观察</td><td>东北、海南、西藏等</td><td>示范园区、供热、新能源项目</td><td>专项诊断、轻量看板、政策示范</td><td>“先做低成本诊断，不急于重平台投入。”</td></tr>
+    </tbody>
+  </table>
+
+  <h3>10.4 你应该避免的错误</h3>
+  <div class="grid grid-2">
+    <div class="card"><h3>错误一：只做网页和大屏</h3><p>客户真正付费的是降本、收益、合规和风险降低。看板只是载体，诊断和测算才是价值。</p></div>
+    <div class="card"><h3>错误二：没有数据口径</h3><p>如果电费账单月、自然月、碳核算月、项目基准期不统一，所有结论都会失真。</p></div>
+    <div class="card"><h3>错误三：用全国平均判断单个项目</h3><p>储能和光伏高度依赖省份电价、负荷曲线、并网条件和上网规则，不能套模板直接报价。</p></div>
+    <div class="card"><h3>错误四：不复盘模型偏差</h3><p>每个项目都要记录“预测收益 vs 实际收益”，否则数据产品不会越来越准。</p></div>
+  </div>
+</section>
+
+<section class="section" id="sources">
+  <h2>11. 数据来源与引用说明</h2>
+  <p class="lead">本网页使用公开资料进行行业分析。部分省级机会指数、竞争强度、产品优先级为自建评分模型，已在文中标注为“模型评分/示意”，不作为官方统计。</p>
+  <ol class="references">
+    <li id="S1"><b>[S1] 国家能源局：2025年全社会用电量同比增长5.0%</b>：2025年全社会用电量103682亿千瓦时，分产业用电，充换电服务和信息软件服务增速。<br><a href="https://www.nea.gov.cn/20260121/715f79826488476a9162da7c8bd77c80/c.html" target="_blank" rel="noopener">https://www.nea.gov.cn/20260121/715f79826488476a9162da7c8bd77c80/c.html</a></li>
+<li id="S2"><b>[S2] 国家能源局：2025年可再生能源并网运行情况</b>：2025年可再生能源装机、风电、光伏、水电、生物质装机与发电量。<br><a href="https://www.nea.gov.cn/20260212/742b8c6a078347b0b39de676c05c5d58/c.html" target="_blank" rel="noopener">https://www.nea.gov.cn/20260212/742b8c6a078347b0b39de676c05c5d58/c.html</a></li>
+<li id="S3"><b>[S3] 国家能源局：2024年可再生能源并网运行情况</b>：2024年可再生能源装机与发电量，用于同比对比。<br><a href="https://www.nea.gov.cn/20250221/e10f363cabe3458aaf78ba4558970054/c.html" target="_blank" rel="noopener">https://www.nea.gov.cn/20250221/e10f363cabe3458aaf78ba4558970054/c.html</a></li>
+<li id="S4"><b>[S4] 国家能源局：2025年全国电力市场交易电量</b>：2025年电力市场交易电量66394亿千瓦时，占全社会用电量64%，绿电交易3285亿千瓦时。<br><a href="https://www.nea.gov.cn/20260123/da0efaf376b748b6a68c7e19ff8b011d/c.html" target="_blank" rel="noopener">https://www.nea.gov.cn/20260123/da0efaf376b748b6a68c7e19ff8b011d/c.html</a></li>
+<li id="S5"><b>[S5] 国家能源局：2025年新型储能发展情况</b>：2025年底新型储能1.36亿千瓦/3.51亿千瓦时，较2024年底增长84%，平均时长2.58小时。<br><a href="https://www.nea.gov.cn/20260130/50f657ce87f848e1a9a1861d1fd9aa23/c.html" target="_blank" rel="noopener">https://www.nea.gov.cn/20260130/50f657ce87f848e1a9a1861d1fd9aa23/c.html</a></li>
+<li id="S6"><b>[S6] 新华网/CNESA：2025年新型储能新增投运66.43GW/189.48GWh</b>：区域分布、应用场景、Top10省份合计接近90%，独立储能占比提升。<br><a href="https://www.news.cn/energy/20260122/1c7f6e76fb324b61a86fcbd2d24d3f56/c.html" target="_blank" rel="noopener">https://www.news.cn/energy/20260122/1c7f6e76fb324b61a86fcbd2d24d3f56/c.html</a></li>
+<li id="S7"><b>[S7] 广东省水力和新能源发电工程学会转载中国电力知库：2024年各省GDP和用电量增速排行</b>：2024年全国GDP、电量；GDP和用电量前四为广东、江苏、山东、浙江；部分省份用电增速和单位GDP电耗。<br><a href="https://www.gdshe.org/article/23756.html" target="_blank" rel="noopener">https://www.gdshe.org/article/23756.html</a></li>
+<li id="S8"><b>[S8] 全国标准信息公共服务平台：GB/T 2589-2020 综合能耗计算通则</b>：综合能耗核算标准，现行，2021-04-01实施。<br><a href="https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=53D1440B68E6D50B8BA0CCAB619B6B3E" target="_blank" rel="noopener">https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=53D1440B68E6D50B8BA0CCAB619B6B3E</a></li>
+<li id="S9"><b>[S9] 国家能源局：分布式光伏发电开发建设管理办法政策解读</b>：分布式光伏分类、上网模式、可观可测可调可控、微电网/源网荷储/虚拟电厂参与调度。<br><a href="https://www.nea.gov.cn/20250123/d38e5436b4d04159863ddbc10a6ede10/c.html" target="_blank" rel="noopener">https://www.nea.gov.cn/20250123/d38e5436b4d04159863ddbc10a6ede10/c.html</a></li>
+<li id="S10"><b>[S10] 国家发展改革委等：电力需求侧管理办法（2023年版）</b>：需求侧管理定义、综合能源服务、需求响应、资源库、到2025年响应能力目标。<br><a href="https://www.ndrc.gov.cn/xxgk/zcfb/ghxwj/202309/P020230927316131533276.pdf" target="_blank" rel="noopener">https://www.ndrc.gov.cn/xxgk/zcfb/ghxwj/202309/P020230927316131533276.pdf</a></li>
+<li id="S11"><b>[S11] 生态环境部转载国务院办公厅：加快构建碳排放双控制度体系工作方案</b>：地方碳预算、重点行业碳核算、固定资产投资项目碳评价、产品碳足迹体系。<br><a href="https://www.mee.gov.cn/zcwj/gwywj/202408/t20240806_1083433.shtml" target="_blank" rel="noopener">https://www.mee.gov.cn/zcwj/gwywj/202408/t20240806_1083433.shtml</a></li>
+<li id="S12"><b>[S12] 新浪财经转载Wood Mackenzie：2024全球储能系统集成商排名</b>：储能系统集成商竞争格局参考：特斯拉、阳光电源、中车株洲所、远景/华为、海博思创等。<br><a href="https://finance.sina.com.cn/roll/2025-08-09/doc-infkkzhv0642367.shtml" target="_blank" rel="noopener">https://finance.sina.com.cn/roll/2025-08-09/doc-infkkzhv0642367.shtml</a></li>
+<li id="S13"><b>[S13] 朗新科技产品与方案页面</b>：能源数字化、虚拟电厂、零碳园区、能碳大脑等竞品能力参考。<br><a href="https://www.longshine.com/solution.html?classify=7" target="_blank" rel="noopener">https://www.longshine.com/solution.html?classify=7</a></li>
+<li id="S14"><b>[S14] 南网能源公司公告/行业报告</b>：合同能源管理、分布式光伏、工业节能、建筑节能等业务模式参考。<br><a href="https://pdf.dfcfw.com/pdf/H3_AP202206091570988461_1.pdf" target="_blank" rel="noopener">https://pdf.dfcfw.com/pdf/H3_AP202206091570988461_1.pdf</a></li>
+  </ol>
+  <div class="note">生成日期：2026-06-03。因地方电价、绿电交易、项目备案、各省政策会变化，落地前建议对目标省份逐项核实最新电价、并网、现货、需求响应和碳政策。</div>
+</section>
+
+</main>
+</div>
+</body>
+</html>
